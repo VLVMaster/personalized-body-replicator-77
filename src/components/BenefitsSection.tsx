@@ -1,11 +1,11 @@
 
-import { DollarSign, ShieldCheck, Printer, Lock } from 'lucide-react';
+import { PoundSterling, Lock, Printer, ShieldCheck } from 'lucide-react';
 import RevealOnScroll from './ui/RevealOnScroll';
 
 const BenefitsSection = () => {
   const benefits = [
     {
-      icon: <DollarSign className="h-8 w-8 text-vlv-purple" />,
+      icon: <PoundSterling className="h-8 w-8 text-vlv-purple" />,
       title: "Zero Upfront Costs",
       description: "We cover all scanning and production expenses, letting you focus on your brand."
     },
@@ -17,7 +17,7 @@ const BenefitsSection = () => {
     {
       icon: <Printer className="h-8 w-8 text-vlv-purple" />,
       title: "Personalised Precision",
-      description: "Our cutting-edge process not only replicates your body but also closely matches your skin tone for a truly authentic product."
+      description: "Our advanced 3D technology turns your scan into a custom, high-quality silicone replica that mirrors your skin tone for a truly personalised finish."
     },
     {
       icon: <ShieldCheck className="h-8 w-8 text-vlv-purple" />,

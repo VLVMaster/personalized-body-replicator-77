@@ -1,3 +1,4 @@
+
 import RevealOnScroll from './ui/RevealOnScroll';
 import { ArrowDown } from 'lucide-react';
 
@@ -14,12 +15,6 @@ const HeroSection = () => {
       <div className="section-container grid md:grid-cols-2 gap-12 items-center z-10">
         <div className="order-2 md:order-1">
           <RevealOnScroll animation="slide-up">
-            <span className="inline-block px-3 py-1 text-sm font-medium bg-vlv-light text-vlv-burgundy rounded-full mb-6">
-              Personalised Products for Content Creators
-            </span>
-          </RevealOnScroll>
-          
-          <RevealOnScroll animation="slide-up" delay="delay-200">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-tight text-balance text-foreground">
               Your Body, <span className="gradient-text">Perfectly Replicated</span>
             </h1>
@@ -27,13 +22,18 @@ const HeroSection = () => {
           
           <RevealOnScroll animation="slide-up" delay="delay-300">
             <p className="text-lg md:text-xl text-foreground opacity-90 mb-8 max-w-xl">
-              At Vulva La Replica (VLV), we empower OnlyFans creators to transform their unique image into personalised products, with zero upfront costs. <strong>Simply scan, sell, and profit.</strong>
+              At VLV, we empower OnlyFans creators to transform their unique image into personalised products, with zero upfront costs. <strong>Simply scan, sell, and profit.</strong>
             </p>
           </RevealOnScroll>
           
           <RevealOnScroll animation="slide-up" delay="delay-400">
             <div className="flex flex-col sm:flex-row gap-4">
-              <a href="#signup" className="button-primary flex items-center justify-center gap-2 group">
+              <a 
+                href="https://inta.io/download" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="button-primary flex items-center justify-center gap-2 group"
+              >
                 Download VLV Scanning App
                 <ArrowDown size={18} className="transition-transform group-hover:translate-y-1" />
               </a>
@@ -49,14 +49,11 @@ const HeroSection = () => {
               <div className="absolute inset-0 glass-panel overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-tr from-vlv-purple/10 to-vlv-burgundy/10" />
                 <div className="h-full w-full flex items-center justify-center p-8">
-                  <div className="text-center space-y-6">
-                    <h3 className="text-2xl font-display font-semibold text-foreground">From Scan to Profit</h3>
-                    <p className="text-lg text-foreground opacity-90">Create your personalised product and start earning with a 50/50 revenue share.</p>
-                    <div className="flex justify-center">
-                      <span className="text-4xl font-bold gradient-text">£50+</span>
-                    </div>
-                    <p className="text-sm text-foreground opacity-70">Your profit per sale</p>
-                  </div>
+                  <img 
+                    src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d" 
+                    alt="Person using VLV app" 
+                    className="rounded-lg object-cover shadow-lg max-h-full max-w-full"
+                  />
                 </div>
               </div>
             </div>
