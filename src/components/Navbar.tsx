@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -43,10 +42,9 @@ const Navbar = () => {
           </button>
         ) : (
           <nav className="flex items-center space-x-1">
-            <a href="#how-it-works" className="nav-link">How It Works</a>
             <a href="#benefits" className="nav-link">Benefits</a>
             <a href="#market" className="nav-link">Market</a>
-            <a href="#signup" className="button-primary ml-4">Sign Up</a>
+            <a href="#signup" className="button-primary ml-4">Download App</a>
           </nav>
         )}
       </div>
@@ -59,13 +57,6 @@ const Navbar = () => {
           }`}
         >
           <nav className="flex flex-col items-center space-y-6 p-6">
-            <a 
-              href="#how-it-works" 
-              className="text-xl py-2 w-full text-center"
-              onClick={toggleMenu}
-            >
-              How It Works
-            </a>
             <a 
               href="#benefits" 
               className="text-xl py-2 w-full text-center"
@@ -85,7 +76,7 @@ const Navbar = () => {
               className="button-primary w-full text-center mt-4"
               onClick={toggleMenu}
             >
-              Sign Up
+              Download App
             </a>
           </nav>
         </div>

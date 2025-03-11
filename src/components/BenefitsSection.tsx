@@ -1,5 +1,5 @@
 
-import { DollarSign, ShieldCheck, Printer, Fingerprint, Lock, Smile } from 'lucide-react';
+import { DollarSign, ShieldCheck, Printer, Lock } from 'lucide-react';
 import RevealOnScroll from './ui/RevealOnScroll';
 
 const BenefitsSection = () => {
@@ -10,29 +10,19 @@ const BenefitsSection = () => {
       description: "We cover all scanning and production expenses, letting you focus on your brand."
     },
     {
-      icon: <Printer className="h-8 w-8 text-vlv-purple" />,
-      title: "On-Demand Production",
-      description: "Products are only created when you make a sale—no inventory management or production risks. Customers also enjoy discrete packaging."
-    },
-    {
-      icon: <ShieldCheck className="h-8 w-8 text-vlv-purple" />,
-      title: "Fair Partnership",
-      description: "Enjoy a straightforward 50/50 revenue share. Every sale directly boosts your earnings."
-    },
-    {
-      icon: <Fingerprint className="h-8 w-8 text-vlv-purple" />,
-      title: "Personalized Precision",
-      description: "Our cutting-edge process not only replicates your body but also closely matches your skin tone for a truly authentic product."
-    },
-    {
       icon: <Lock className="h-8 w-8 text-vlv-purple" />,
       title: "Privacy & Security",
       description: "Your scan and personal data remain completely confidential."
     },
     {
-      icon: <Smile className="h-8 w-8 text-vlv-purple" />,
-      title: "Effortless Monetization",
-      description: "Simply scan, list, and promote. We handle production and shipping so you can concentrate on growing your following."
+      icon: <Printer className="h-8 w-8 text-vlv-purple" />,
+      title: "Personalised Precision",
+      description: "Our cutting-edge process not only replicates your body but also closely matches your skin tone for a truly authentic product."
+    },
+    {
+      icon: <ShieldCheck className="h-8 w-8 text-vlv-purple" />,
+      title: "Fair Partnership",
+      description: "Enjoy a straightforward 50/50 revenue share. Every sale directly boosts your earnings."
     }
   ];
 
@@ -45,17 +35,17 @@ const BenefitsSection = () => {
               Why Choose <span className="gradient-text">VLV</span>
             </h2>
             <p className="section-subheading mx-auto">
-              We've designed our service to make monetization easy, secure, and profitable for creators
+              We've designed our service to make monetisation easy, secure, and profitable for creators
             </p>
           </div>
         </RevealOnScroll>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+        <div className="grid md:grid-cols-2 gap-8 mt-8">
           {benefits.map((benefit, index) => (
             <RevealOnScroll 
               key={index} 
               animation="slide-up" 
-              delay={`delay-${(index % 3 + 1) * 100}` as any}
+              delay={`delay-${(index % 2 + 1) * 100}` as any}
             >
               <div className="bg-card rounded-xl p-6 border border-border shadow-sm hover:shadow-md transition-all duration-300 h-full">
                 <div className="flex gap-4 items-start">

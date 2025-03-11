@@ -1,6 +1,5 @@
-
 import RevealOnScroll from './ui/RevealOnScroll';
-import { ArrowRight } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 
 const HeroSection = () => {
   return (
@@ -16,7 +15,7 @@ const HeroSection = () => {
         <div className="order-2 md:order-1">
           <RevealOnScroll animation="slide-up">
             <span className="inline-block px-3 py-1 text-sm font-medium bg-vlv-light text-vlv-burgundy rounded-full mb-6">
-              Personalized Products for Content Creators
+              Personalised Products for Content Creators
             </span>
           </RevealOnScroll>
           
@@ -28,18 +27,15 @@ const HeroSection = () => {
           
           <RevealOnScroll animation="slide-up" delay="delay-300">
             <p className="text-lg md:text-xl text-foreground opacity-90 mb-8 max-w-xl">
-              At Vulva La Replica (VLV), we empower OnlyFans creators to transform their unique image into personalized products, with zero upfront costs. Simply scan, sell, and profit.
+              At Vulva La Replica (VLV), we empower OnlyFans creators to transform their unique image into personalised products, with zero upfront costs. <strong>Simply scan, sell, and profit.</strong>
             </p>
           </RevealOnScroll>
           
           <RevealOnScroll animation="slide-up" delay="delay-400">
             <div className="flex flex-col sm:flex-row gap-4">
               <a href="#signup" className="button-primary flex items-center justify-center gap-2 group">
-                Start Earning Now
-                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-              </a>
-              <a href="#how-it-works" className="button-secondary">
-                Learn How It Works
+                Download VLV Scanning App
+                <ArrowDown size={18} className="transition-transform group-hover:translate-y-1" />
               </a>
             </div>
           </RevealOnScroll>
@@ -55,9 +51,9 @@ const HeroSection = () => {
                 <div className="h-full w-full flex items-center justify-center p-8">
                   <div className="text-center space-y-6">
                     <h3 className="text-2xl font-display font-semibold text-foreground">From Scan to Profit</h3>
-                    <p className="text-lg text-foreground opacity-90">Create your personalized product and start earning with a 50/50 revenue share.</p>
+                    <p className="text-lg text-foreground opacity-90">Create your personalised product and start earning with a 50/50 revenue share.</p>
                     <div className="flex justify-center">
-                      <span className="text-4xl font-bold gradient-text">$50+</span>
+                      <span className="text-4xl font-bold gradient-text">£50+</span>
                     </div>
                     <p className="text-sm text-foreground opacity-70">Your profit per sale</p>
                   </div>
