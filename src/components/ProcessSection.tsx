@@ -1,5 +1,5 @@
 
-import { Scan, Printer3d, DollarSign } from 'lucide-react';
+import { Scan, Printer, DollarSign } from 'lucide-react';
 import RevealOnScroll from './ui/RevealOnScroll';
 
 const ProcessSection = () => {
@@ -10,7 +10,7 @@ const ProcessSection = () => {
       description: "Download the VLV app and perform a quick, precise scan to create a digital mold of your intimate features."
     },
     {
-      icon: <Printer3d className="h-12 w-12 text-vlv-purple" />,
+      icon: <Printer className="h-12 w-12 text-vlv-purple" />,
       title: "Create Your Replica",
       description: "Our advanced 3D technology turns your scan into a custom, high-quality silicone replica that mirrors your unique form with exquisite detail. We even closely match your skin tone for a truly personalized finish."
     },
