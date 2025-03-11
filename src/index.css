@@ -54,6 +54,11 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
+    color: hsl(330 15% 15%); /* Explicitly setting text color */
+  }
+
+  h1, h2, h3, h4, h5, h6, p, span, div {
+    color: inherit; /* Ensure all text elements inherit the color properly */
   }
 
   html {

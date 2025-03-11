@@ -21,13 +21,13 @@ const HeroSection = () => {
           </RevealOnScroll>
           
           <RevealOnScroll animation="slide-up" delay="delay-200">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-tight text-balance">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-tight text-balance text-foreground">
               Your Body, <span className="gradient-text">Perfectly Replicated</span>
             </h1>
           </RevealOnScroll>
           
           <RevealOnScroll animation="slide-up" delay="delay-300">
-            <p className="text-lg md:text-xl opacity-90 mb-8 max-w-xl">
+            <p className="text-lg md:text-xl text-foreground opacity-90 mb-8 max-w-xl">
               At Vulva La Replica (VLV), we empower OnlyFans creators to transform their unique image into personalized products, with zero upfront costs. Simply scan, sell, and profit.
             </p>
           </RevealOnScroll>
@@ -54,12 +54,12 @@ const HeroSection = () => {
                 <div className="absolute inset-0 bg-gradient-to-tr from-vlv-purple/10 to-vlv-burgundy/10" />
                 <div className="h-full w-full flex items-center justify-center p-8">
                   <div className="text-center space-y-6">
-                    <h3 className="text-2xl font-display font-semibold">From Scan to Profit</h3>
-                    <p className="text-lg opacity-90">Create your personalized product and start earning with a 50/50 revenue share.</p>
+                    <h3 className="text-2xl font-display font-semibold text-foreground">From Scan to Profit</h3>
+                    <p className="text-lg text-foreground opacity-90">Create your personalized product and start earning with a 50/50 revenue share.</p>
                     <div className="flex justify-center">
                       <span className="text-4xl font-bold gradient-text">$50+</span>
                     </div>
-                    <p className="text-sm opacity-70">Your profit per sale</p>
+                    <p className="text-sm text-foreground opacity-70">Your profit per sale</p>
                   </div>
                 </div>
               </div>
