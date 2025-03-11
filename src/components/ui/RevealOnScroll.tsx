@@ -20,11 +20,16 @@ const RevealOnScroll = ({
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Initially set all content to visible right away to ensure it's not hidden
+    setIsVisible(true);
+    
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.unobserve(entry.target);
+          if (ref.current) {
+            observer.unobserve(ref.current);
+          }
         }
       },
       {
@@ -49,8 +54,8 @@ const RevealOnScroll = ({
   return (
     <div 
       ref={ref} 
-      className={`${isVisible ? `animate-${animation}` : 'opacity-0'} delayed-animation ${delay}`}
-      aria-hidden={!isVisible}
+      className={`${isVisible ? `animate-${animation}` : 'opacity-100'} delayed-animation ${delay}`}
+      style={{ opacity: 1 }} // Force visibility
     >
       {children}
     </div>

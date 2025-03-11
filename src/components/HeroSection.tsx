@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-visible">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-vlv-light/50 to-background z-0" />
       

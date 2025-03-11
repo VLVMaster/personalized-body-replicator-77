@@ -52,7 +52,7 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground font-sans antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
     color: hsl(330 15% 15%); /* Explicitly setting text color */
   }
@@ -68,7 +68,7 @@
 
 @layer components {
   .glass-panel {
-    @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-xl shadow-lg;
+    @apply bg-white/50 backdrop-blur-md border border-white/50 rounded-xl shadow-lg;
   }
 
   .gradient-text {
@@ -76,7 +76,7 @@
   }
 
   .section-container {
-    @apply max-w-7xl mx-auto px-8 py-16 md:py-24 relative overflow-hidden;
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative overflow-visible;
   }
 
   .text-balance {
@@ -84,11 +84,11 @@
   }
 
   .section-heading {
-    @apply text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-8 text-balance;
+    @apply text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-8 text-balance text-foreground;
   }
 
   .section-subheading {
-    @apply text-xl md:text-2xl font-medium mb-10 max-w-2xl text-balance opacity-90;
+    @apply text-xl md:text-2xl font-medium mb-10 max-w-2xl text-balance text-foreground opacity-90;
   }
 
   .input-field {
@@ -167,6 +167,7 @@
   animation: float 5s ease-in-out infinite;
 }
 
+/* Fix for animations potentially causing content to be hidden */
 .page-transition-enter {
   opacity: 0;
   transform: translateY(10px);
@@ -187,4 +188,13 @@
   opacity: 0;
   transform: translateY(-10px);
   transition: opacity 400ms, transform 400ms;
+}
+
+/* Override default styling that might be hiding content */
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
 }
