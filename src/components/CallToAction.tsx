@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Download } from 'lucide-react';
+import { Download, PoundSterling, Lock } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import RevealOnScroll from './ui/RevealOnScroll';
 
