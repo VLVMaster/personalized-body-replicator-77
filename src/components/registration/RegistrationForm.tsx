@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { supabase, supabaseError, errorMessage } from '@/utils/supabase-client';
 
@@ -11,11 +13,35 @@ interface RegistrationFormProps {
   onClose: () => void;
 }
 
+interface InterestType {
+  id: string;
+  label: string;
+}
+
+const interestTypes: InterestType[] = [
+  { id: 'model', label: 'Model' },
+  { id: 'agency', label: 'Agency' },
+  { id: 'partnership', label: 'Partnership Enquiry' },
+  { id: 'other', label: 'Other' }
+];
+
 const RegistrationForm = ({ onSuccess, onClose }: RegistrationFormProps) => {
   const { toast } = useToast();
   const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const handleInterestChange = (interestId: string) => {
+    setSelectedInterests(prev => {
+      if (prev.includes(interestId)) {
+        return prev.filter(id => id !== interestId);
+      } else {
+        return [...prev, interestId];
+      }
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,6 +64,8 @@ const RegistrationForm = ({ onSuccess, onClose }: RegistrationFormProps) => {
             .from('registrations')
             .insert([{ 
               email,
+              interests: selectedInterests,
+              message: message || null,
               created_at: new Date().toISOString()
             }]);
             
@@ -57,6 +85,8 @@ const RegistrationForm = ({ onSuccess, onClose }: RegistrationFormProps) => {
               });
               
               setEmail('');
+              setMessage('');
+              setSelectedInterests([]);
               setError(null);
               setIsSubmitting(false);
               return;
@@ -82,7 +112,7 @@ const RegistrationForm = ({ onSuccess, onClose }: RegistrationFormProps) => {
             setIsSubmitting(false);
             return;
           } else {
-            console.log('Registration submitted to Supabase:', { email });
+            console.log('Registration submitted to Supabase:', { email, interests: selectedInterests, message });
           }
         } catch (supabaseErr: any) {
           console.error('Failed to connect to Supabase:', supabaseErr);
@@ -96,7 +126,7 @@ const RegistrationForm = ({ onSuccess, onClose }: RegistrationFormProps) => {
           return;
         }
       } else {
-        console.log('Demo mode: Would have submitted:', { email });
+        console.log('Demo mode: Would have submitted:', { email, interests: selectedInterests, message });
       }
       
       // Close the dialog first
@@ -110,6 +140,8 @@ const RegistrationForm = ({ onSuccess, onClose }: RegistrationFormProps) => {
       });
       
       setEmail('');
+      setMessage('');
+      setSelectedInterests([]);
       setError(null);
     } catch (err: any) {
       console.error('Registration error:', err);
@@ -152,15 +184,53 @@ const RegistrationForm = ({ onSuccess, onClose }: RegistrationFormProps) => {
             required
             disabled={isSubmitting}
           />
-          
-          <Button 
-            type="submit" 
-            className="mt-4 w-full" 
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Submitting...' : 'Submit'}
-          </Button>
         </div>
+        
+        <div>
+          <label className="block text-sm font-medium text-muted-foreground mb-1">
+            I am interested in: (optional)
+          </label>
+          <div className="space-y-2">
+            {interestTypes.map((interest) => (
+              <div key={interest.id} className="flex items-center space-x-2">
+                <Checkbox 
+                  id={interest.id} 
+                  checked={selectedInterests.includes(interest.id)}
+                  onCheckedChange={() => handleInterestChange(interest.id)}
+                  disabled={isSubmitting}
+                />
+                <label
+                  htmlFor={interest.id}
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  {interest.label}
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <div>
+          <label htmlFor="message" className="block text-sm font-medium text-muted-foreground mb-1">
+            Message (optional)
+          </label>
+          <Textarea
+            id="message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Tell us more about your interest..."
+            className="flex-grow focus:border-vlv-purple"
+            disabled={isSubmitting}
+          />
+        </div>
+          
+        <Button 
+          type="submit" 
+          className="mt-4 w-full" 
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Submitting...' : 'Submit'}
+        </Button>
       </form>
     </>
   );
