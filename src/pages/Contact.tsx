@@ -7,7 +7,7 @@ const Contact = () => {
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl font-bold mb-6 text-center">Contact Us</h1>
         <p className="text-lg text-muted-foreground mb-10 text-center">
-          Have questions, feedback, or want to learn more about VLV? We'd love to hear from you.
+          Have questions or want to learn more about VLV? We'd love to hear from you.
         </p>
         
         <ContactForm />
