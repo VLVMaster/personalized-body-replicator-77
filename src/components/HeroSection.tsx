@@ -2,9 +2,11 @@
 import { useState } from 'react';
 import RevealOnScroll from './ui/RevealOnScroll';
 import RegistrationDialog from './RegistrationDialog';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const HeroSection = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-visible">
@@ -19,7 +21,16 @@ const HeroSection = () => {
         <div>
           <RevealOnScroll animation="slide-up">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-tight text-balance text-foreground">
-              Your Body, <span className="gradient-text">Perfectly Replicated</span>
+              {isMobile ? (
+                <>
+                  Your Body, <br />
+                  <span className="gradient-text">Perfectly Replicated</span>
+                </>
+              ) : (
+                <>
+                  Your Body, <span className="gradient-text">Perfectly Replicated</span>
+                </>
+              )}
             </h1>
           </RevealOnScroll>
           
