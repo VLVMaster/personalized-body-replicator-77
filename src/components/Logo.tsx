@@ -30,7 +30,7 @@ const Logo = ({ className = '', size = 'md', withText = true }: LogoProps) => {
           className="w-full h-full"
           xmlns="http://www.w3.org/2000/svg"
         >
-          {/* Stylized VLR logo */}
+          {/* Geometric VLR logo with overlapping shapes */}
           <defs>
             <linearGradient id="vlrGradient" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#8A4D76" />
@@ -38,34 +38,51 @@ const Logo = ({ className = '', size = 'md', withText = true }: LogoProps) => {
             </linearGradient>
           </defs>
           
-          {/* Stylized V shape */}
-          <path
-            d="M20,20 L50,70 L80,20"
-            fill="none"
-            stroke="url(#vlrGradient)"
-            strokeWidth="12"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+          {/* V - Triangle */}
+          <polygon 
+            points="15,75 35,25 55,75" 
+            fill="url(#vlrGradient)" 
+            opacity="0.9"
           />
           
-          {/* L shape */}
-          <path
-            d="M30,40 L30,75 L60,75"
-            fill="none"
-            stroke="url(#vlrGradient)"
-            strokeWidth="10"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+          {/* L - Rectangle and square */}
+          <rect 
+            x="30" 
+            y="25" 
+            width="15" 
+            height="50" 
+            fill="url(#vlrGradient)" 
+            opacity="0.9"
+          />
+          <rect 
+            x="30" 
+            y="60" 
+            width="35" 
+            height="15" 
+            fill="url(#vlrGradient)" 
+            opacity="0.9"
           />
           
-          {/* R shape */}
-          <path
-            d="M70,45 C85,45 85,60 70,60 L55,60 L70,75"
-            fill="none"
-            stroke="url(#vlrGradient)"
-            strokeWidth="10"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+          {/* R - Combined shapes */}
+          <rect 
+            x="55" 
+            y="25" 
+            width="15" 
+            height="50" 
+            fill="url(#vlrGradient)" 
+            opacity="0.9"
+          />
+          <circle 
+            cx="70" 
+            cy="35" 
+            r="15" 
+            fill="url(#vlrGradient)" 
+            opacity="0.8"
+          />
+          <polygon 
+            points="70,45 85,75 70,75" 
+            fill="url(#vlrGradient)" 
+            opacity="0.9"
           />
         </svg>
       </div>
@@ -73,7 +90,7 @@ const Logo = ({ className = '', size = 'md', withText = true }: LogoProps) => {
       {withText && (
         <span className={`font-display font-bold ${
           size === 'sm' ? 'text-lg' : size === 'md' ? 'text-xl' : 'text-2xl'
-        } text-transparent bg-clip-text bg-gradient-to-r from-vlv-purple to-vlv-burgundy`}>
+        } text-transparent bg-clip-text bg-gradient-to-r from-vlr-purple to-vlr-burgundy`}>
           Vulva La Replica
         </span>
       )}
