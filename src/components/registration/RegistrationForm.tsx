@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { supabase, supabaseError, errorMessage } from '@/utils/supabase-client';
@@ -14,7 +13,6 @@ interface RegistrationFormProps {
 const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
   const { toast } = useToast();
   const [email, setEmail] = useState('');
-  const [domainPreference, setDomainPreference] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -35,34 +33,11 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
         try {
           console.log('Attempting to insert into Supabase...');
           
-          // Check if table exists
-          const { data: tableCheck, error: tableError } = await supabase
-            .from('registrations')
-            .select('*')
-            .limit(1);
-          
-          if (tableError) {
-            console.error('Table check error:', tableError);
-            // If table doesn't exist, show a more helpful error
-            if (tableError.message.includes('does not exist')) {
-              toast({
-                title: "Database table missing",
-                description: "The 'registrations' table doesn't exist in your Supabase project. Please create it first.",
-                variant: "destructive"
-              });
-              setError("The 'registrations' table doesn't exist in your Supabase project. Please create it first with columns: email, domain_preference, created_at, and source.");
-              setIsSubmitting(false);
-              return;
-            }
-          }
-          
           const { error: insertError } = await supabase
             .from('registrations')
             .insert([{ 
-              email, 
-              domain_preference: domainPreference,
-              created_at: new Date().toISOString(),
-              source: 'VLV Registration Form'
+              email,
+              created_at: new Date().toISOString()
             }]);
             
           if (insertError) {
@@ -76,7 +51,7 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
             setIsSubmitting(false);
             return;
           } else {
-            console.log('Registration submitted to Supabase:', { email, domainPreference });
+            console.log('Registration submitted to Supabase:', { email });
           }
         } catch (supabaseErr: any) {
           console.error('Failed to connect to Supabase:', supabaseErr);
@@ -90,7 +65,7 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
           return;
         }
       } else {
-        console.log('Demo mode: Would have submitted:', { email, domainPreference });
+        console.log('Demo mode: Would have submitted:', { email });
       }
       
       toast({
@@ -100,7 +75,6 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
       
       onSuccess();
       setEmail('');
-      setDomainPreference('');
       setError(null);
     } catch (err: any) {
       console.error('Registration error:', err);
