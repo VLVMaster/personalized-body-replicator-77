@@ -42,12 +42,24 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
             
           if (insertError) {
             console.error('Supabase insert error:', insertError);
-            toast({
-              title: "Registration error",
-              description: insertError.message || "Failed to save your information",
-              variant: "destructive"
-            });
-            setError(insertError.message || 'Failed to register. Please try again.');
+            
+            // Check for RLS policy error specifically
+            if (insertError.message.includes('row-level security') || insertError.code === 'PGRST301') {
+              toast({
+                title: "Database permission error",
+                description: "You need to update your Supabase RLS policies to allow insertions to the 'registrations' table",
+                variant: "destructive"
+              });
+              setError("Row-level security is blocking your registration. Please update your Supabase RLS policies for the 'registrations' table to allow insertions from anonymous users.");
+            } else {
+              toast({
+                title: "Registration error",
+                description: insertError.message || "Failed to save your information",
+                variant: "destructive"
+              });
+              setError(insertError.message || 'Failed to register. Please try again.');
+            }
+            
             setIsSubmitting(false);
             return;
           } else {
