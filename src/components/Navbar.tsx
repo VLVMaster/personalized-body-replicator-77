@@ -2,10 +2,12 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
+import RegistrationDialog from './RegistrationDialog';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const isMobile = useIsMobile();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -43,7 +45,12 @@ const Navbar = () => {
             <a href="#how-it-works" className="nav-link">How It Works</a>
             <a href="#benefits" className="nav-link">Why Choose VLV</a>
             <a href="#market" className="nav-link">Earning Opportunity</a>
-            <a href="#signup" className="button-primary ml-4">Register Interest</a>
+            <button 
+              onClick={() => setIsDialogOpen(true)}
+              className="button-primary ml-4"
+            >
+              Register Interest
+            </button>
           </nav>
         )}
       </div>
@@ -77,16 +84,23 @@ const Navbar = () => {
             >
               Earning Opportunity
             </a>
-            <a 
-              href="#signup" 
+            <button
+              onClick={() => {
+                setIsMenuOpen(false);
+                setIsDialogOpen(true);
+              }}
               className="button-primary w-full text-center mt-4"
-              onClick={toggleMenu}
             >
               Register Interest
-            </a>
+            </button>
           </nav>
         </div>
       )}
+
+      <RegistrationDialog 
+        open={isDialogOpen} 
+        onOpenChange={setIsDialogOpen} 
+      />
     </header>
   );
 };

@@ -1,13 +1,15 @@
 
 import { useState } from 'react';
-import { Check, PoundSterling, Lock, Shield, Smartphone } from 'lucide-react';
+import { Check, PoundSterling, Shield } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import RevealOnScroll from './ui/RevealOnScroll';
+import RegistrationDialog from './RegistrationDialog';
 
 const CallToAction = () => {
   const { toast } = useToast();
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,7 +63,7 @@ const CallToAction = () => {
                   Register Your Interest
                 </h3>
                 <p className="text-lg mb-8 max-w-2xl mx-auto text-center text-muted-foreground">
-                  Be the first to know when we launch. Earn £50+ per sale with zero upfront costs.
+                  Be the first to know when we launch to be invited.
                 </p>
                 
                 {!isSubmitted ? (
@@ -106,6 +108,11 @@ const CallToAction = () => {
           </div>
         </div>
       </div>
+      
+      <RegistrationDialog 
+        open={isDialogOpen} 
+        onOpenChange={setIsDialogOpen} 
+      />
     </section>
   );
 };

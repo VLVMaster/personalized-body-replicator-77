@@ -1,8 +1,12 @@
 
+import { useState } from 'react';
 import { Scan, Printer, PoundSterling } from 'lucide-react';
 import RevealOnScroll from './ui/RevealOnScroll';
+import RegistrationDialog from './RegistrationDialog';
 
 const ProcessSection = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  
   const steps = [
     {
       icon: <Scan className="h-12 w-12 text-vlv-purple" />,
@@ -61,12 +65,20 @@ const ProcessSection = () => {
         
         <RevealOnScroll delay="delay-400">
           <div className="mt-16 text-center">
-            <a href="#signup" className="button-primary">
+            <button 
+              onClick={() => setIsDialogOpen(true)} 
+              className="button-primary"
+            >
               Register Your Interest
-            </a>
+            </button>
           </div>
         </RevealOnScroll>
       </div>
+
+      <RegistrationDialog 
+        open={isDialogOpen} 
+        onOpenChange={setIsDialogOpen} 
+      />
     </section>
   );
 };

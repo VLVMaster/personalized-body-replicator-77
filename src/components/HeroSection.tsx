@@ -1,8 +1,12 @@
 
+import { useState } from 'react';
 import RevealOnScroll from './ui/RevealOnScroll';
 import { ArrowDown } from 'lucide-react';
+import RegistrationDialog from './RegistrationDialog';
 
 const HeroSection = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-visible">
       {/* Background gradient */}
@@ -31,17 +35,22 @@ const HeroSection = () => {
           
           <RevealOnScroll animation="slide-up" delay="delay-400">
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href="#signup" 
+              <button 
+                onClick={() => setIsDialogOpen(true)} 
                 className="button-primary flex items-center justify-center gap-2 group"
               >
                 Register Your Interest
                 <ArrowDown size={18} className="transition-transform group-hover:translate-y-1" />
-              </a>
+              </button>
             </div>
           </RevealOnScroll>
         </div>
       </div>
+
+      <RegistrationDialog 
+        open={isDialogOpen} 
+        onOpenChange={setIsDialogOpen} 
+      />
     </section>
   );
 };
