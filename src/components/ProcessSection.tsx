@@ -11,17 +11,17 @@ const ProcessSection = () => {
     {
       icon: <Scan className="h-12 w-12 text-vlv-purple" />,
       title: "Scan Your Body",
-      description: "Download the VLV app and perform a quick, precise scan to create a digital 3D mould of your intimate features."
+      description: "Download the VLV app and perform a quick, precise scan to generate a digital 3D mould of your intimate features."
     },
     {
       icon: <Printer className="h-12 w-12 text-vlv-purple" />,
       title: "Create Your Replica",
-      description: "Our advanced 3D technology turns your scan into a custom, high-quality silicone replica that mirrors your skin tone for a truly personalised finish."
+      description: "Our advanced technology turns your scan into a high-quality silicone replica that perfectly mirrors your skin tone."
     },
     {
       icon: <PoundSterling className="h-12 w-12 text-vlv-purple" />,
-      title: "Sell to Your Fans",
-      description: "Sell directly to fans and enjoy a straightforward 50/50 revenue share; £50 for you, £50 for VLV. We print and ship on demand directly to customers, so you skip inventory hassles."
+      title: "Sell Directly to Fans",
+      description: "Enjoy a simple 50/50 revenue share—while we handle print-on-demand production and shipping, you focus on engaging your fans."
     }
   ];
 
