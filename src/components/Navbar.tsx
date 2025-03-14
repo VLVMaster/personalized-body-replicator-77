@@ -64,6 +64,7 @@ const Navbar = () => {
             <a href="#how-it-works" className="nav-link">How It Works</a>
             <a href="#benefits" className="nav-link">Why Choose VLV</a>
             <a href="#market" className="nav-link">Earning Opportunity</a>
+            <a href="/contact" className="nav-link">Contact Us</a>
             <button 
               onClick={() => setIsDialogOpen(true)}
               className="button-primary ml-4"
@@ -108,6 +109,13 @@ const Navbar = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Earning Opportunity
+              </a>
+              <a 
+                href="/contact" 
+                className="text-xl font-medium py-2 w-full text-center"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Contact Us
               </a>
               <button
                 onClick={() => {
