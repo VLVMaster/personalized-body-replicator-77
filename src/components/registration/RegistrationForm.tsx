@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Input } from '@/components/ui/input';
@@ -49,9 +50,10 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
                 description: "You have already registered, we will be in touch.",
                 variant: "default"
               });
-              onSuccess(); // Proceed to success screen even for duplicate
+              // Don't call onSuccess() for duplicates to prevent the success dialog from showing
               setEmail('');
               setError(null);
+              setIsSubmitting(false);
               return;
             }
             
