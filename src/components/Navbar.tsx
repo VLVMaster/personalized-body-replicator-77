@@ -4,6 +4,7 @@ import { Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-mobile';
 import RegistrationDialog from './RegistrationDialog';
+import VLogo from './VLogo';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -49,7 +50,8 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 relative z-50">
-          <span className="text-2xl font-display font-bold text-vlv-purple">Vulva La Replica</span>
+          <VLogo className="mr-1" />
+          <span className="text-2xl font-display font-bold text-vlv-purple">ulva La Replica</span>
         </Link>
         
         {isMobile ? (
