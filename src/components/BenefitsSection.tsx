@@ -1,5 +1,5 @@
 
-import { PoundSterling, Lock, Printer, ShieldCheck } from 'lucide-react';
+import { PoundSterling, Lock, Package, ShieldCheck } from 'lucide-react';
 import RevealOnScroll from './ui/RevealOnScroll';
 
 const BenefitsSection = () => {
@@ -15,9 +15,9 @@ const BenefitsSection = () => {
       description: "Your scan and personal data remain completely confidential."
     },
     {
-      icon: <Printer className="h-8 w-8 text-vlv-purple" />,
-      title: "Personalised Precision",
-      description: "Our advanced 3D technology turns your scan into a custom, high-quality silicone replica that mirrors your skin tone for a truly personalised finish."
+      icon: <Package className="h-8 w-8 text-vlv-purple" />,
+      title: "Your Own Shop",
+      description: "We help you set up your own shop to sell products so it's completely unique to you."
     },
     {
       icon: <ShieldCheck className="h-8 w-8 text-vlv-purple" />,
@@ -47,9 +47,9 @@ const BenefitsSection = () => {
               animation="slide-up" 
               delay={`delay-${(index % 2 + 1) * 100}` as any}
             >
-              <div className="bg-card rounded-xl p-6 border border-border shadow-sm hover:shadow-md transition-all duration-300 h-full">
+              <div className="bg-card rounded-xl p-6 border border-border shadow-sm hover:shadow-md transition-all duration-300 h-full flex">
                 <div className="flex gap-4 items-start">
-                  <div className="p-2 bg-vlv-light rounded-lg">
+                  <div className="p-2 bg-vlv-light rounded-lg shrink-0">
                     {benefit.icon}
                   </div>
                   <div>

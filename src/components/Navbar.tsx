@@ -40,10 +40,10 @@ const Navbar = () => {
           </button>
         ) : (
           <nav className="flex items-center space-x-1">
-            <a href="#process" className="nav-link">How It Works</a>
+            <a href="#how-it-works" className="nav-link">How It Works</a>
             <a href="#benefits" className="nav-link">Why Choose VLV</a>
-            <a href="#market" className="nav-link">Market Opportunity</a>
-            <a href="https://inta.io/download" target="_blank" rel="noopener noreferrer" className="button-primary ml-4">Download App</a>
+            <a href="#market" className="nav-link">Earning Opportunity</a>
+            <a href="#signup" className="button-primary ml-4">Register Interest</a>
           </nav>
         )}
       </div>
@@ -57,7 +57,7 @@ const Navbar = () => {
         >
           <nav className="flex flex-col items-center space-y-6 p-6">
             <a 
-              href="#process" 
+              href="#how-it-works" 
               className="text-xl py-2 w-full text-center"
               onClick={toggleMenu}
             >
@@ -75,16 +75,14 @@ const Navbar = () => {
               className="text-xl py-2 w-full text-center"
               onClick={toggleMenu}
             >
-              Market Opportunity
+              Earning Opportunity
             </a>
             <a 
-              href="https://inta.io/download" 
-              target="_blank" 
-              rel="noopener noreferrer"
+              href="#signup" 
               className="button-primary w-full text-center mt-4"
               onClick={toggleMenu}
             >
-              Download App
+              Register Interest
             </a>
           </nav>
         </div>

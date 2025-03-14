@@ -21,20 +21,21 @@ const HeroSection = () => {
           </RevealOnScroll>
           
           <RevealOnScroll animation="slide-up" delay="delay-300">
-            <p className="text-lg md:text-xl text-foreground opacity-90 mb-8 max-w-xl">
-              At VLV, we empower OnlyFans creators to transform their unique image into personalised products, with zero upfront costs. <strong>Simply scan, sell, and profit.</strong>
+            <p className="text-lg md:text-xl text-foreground opacity-90 mb-4 max-w-xl">
+              At VLV, we empower OnlyFans creators to transform their unique image into personalised products, with zero upfront costs.
+            </p>
+            <p className="text-lg md:text-xl text-foreground opacity-90 mb-8 max-w-xl font-medium">
+              <strong>Simply scan, sell, and profit.</strong>
             </p>
           </RevealOnScroll>
           
           <RevealOnScroll animation="slide-up" delay="delay-400">
             <div className="flex flex-col sm:flex-row gap-4">
               <a 
-                href="https://inta.io/download" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+                href="#signup" 
                 className="button-primary flex items-center justify-center gap-2 group"
               >
-                Download VLV Scanning App
+                Register Your Interest
                 <ArrowDown size={18} className="transition-transform group-hover:translate-y-1" />
               </a>
             </div>

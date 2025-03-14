@@ -13,10 +13,10 @@ const MarketSection = () => {
           <RevealOnScroll>
             <div>
               <h2 className="section-heading">
-                Market <span className="gradient-text">Opportunity</span>
+                Earning <span className="gradient-text">Opportunity</span>
               </h2>
               <p className="section-subheading">
-                With millions of creators and a vast, engaged audience on platforms like OnlyFans, the demand for personalized products has never been higher.
+                With millions of creators and a vast, engaged audience on platforms like OnlyFans, the demand for personalised products has never been higher.
               </p>
               
               <div className="mt-8 space-y-6">
@@ -26,9 +26,9 @@ const MarketSection = () => {
                       <TrendingUp className="h-6 w-6 text-vlv-burgundy" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold mb-1">Monetize Your Audience</h3>
+                      <h3 className="text-xl font-semibold mb-1">Monetise Your Audience</h3>
                       <p className="text-muted-foreground">
-                        Imagine generating an extra $20,000 per month by selling just 1,000 units—this is the potential waiting for you with VLV.
+                        You can earn an additional £20,000 per month by selling 1,000 units with the VLV platform.
                       </p>
                     </div>
                   </div>
@@ -42,7 +42,7 @@ const MarketSection = () => {
                     <div>
                       <h3 className="text-xl font-semibold mb-1">Loyal Fan Base</h3>
                       <p className="text-muted-foreground">
-                        Content creators with dedicated followers can easily convert their audience into customers for these unique, personalized products.
+                        Content creators with dedicated followers can easily convert their audience into customers for these unique, personalised products.
                       </p>
                     </div>
                   </div>
@@ -56,7 +56,7 @@ const MarketSection = () => {
                     <div>
                       <h3 className="text-xl font-semibold mb-1">Growing Industry</h3>
                       <p className="text-muted-foreground">
-                        The creator economy is expanding rapidly, with increasing opportunities for personalized merchandise that connects fans with creators.
+                        The creator economy is expanding rapidly, with increasing opportunities for personalised merchandise that connects fans with creators.
                       </p>
                     </div>
                   </div>
@@ -78,7 +78,7 @@ const MarketSection = () => {
                   <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-sm font-medium">100 Sales</span>
-                      <span className="text-lg font-bold">$5,000</span>
+                      <span className="text-lg font-bold">£5,000</span>
                     </div>
                     <div className="w-full bg-white/20 rounded-full h-2">
                       <div className="bg-vlv-burgundy h-2 rounded-full" style={{ width: '10%' }}></div>
@@ -88,7 +88,7 @@ const MarketSection = () => {
                   <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-sm font-medium">500 Sales</span>
-                      <span className="text-lg font-bold">$25,000</span>
+                      <span className="text-lg font-bold">£25,000</span>
                     </div>
                     <div className="w-full bg-white/20 rounded-full h-2">
                       <div className="bg-vlv-burgundy h-2 rounded-full" style={{ width: '50%' }}></div>
@@ -98,7 +98,7 @@ const MarketSection = () => {
                   <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-sm font-medium">1,000 Sales</span>
-                      <span className="text-lg font-bold">$50,000</span>
+                      <span className="text-lg font-bold">£50,000</span>
                     </div>
                     <div className="w-full bg-white/20 rounded-full h-2">
                       <div className="bg-vlv-burgundy h-2 rounded-full" style={{ width: '100%' }}></div>
@@ -106,7 +106,7 @@ const MarketSection = () => {
                   </div>
                   
                   <p className="text-center text-sm mt-4 opacity-70">
-                    Based on $50 creator profit per sale
+                    Based on £50 creator profit per sale
                   </p>
                 </div>
               </div>

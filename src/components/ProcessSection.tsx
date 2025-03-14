@@ -1,5 +1,5 @@
 
-import { Scan, Printer, DollarSign } from 'lucide-react';
+import { Scan, TestTube, PoundSterling } from 'lucide-react';
 import RevealOnScroll from './ui/RevealOnScroll';
 
 const ProcessSection = () => {
@@ -7,16 +7,16 @@ const ProcessSection = () => {
     {
       icon: <Scan className="h-12 w-12 text-vlv-purple" />,
       title: "Scan Your Body",
-      description: "Download the VLV app and perform a quick, precise scan to create a digital mould of your intimate features."
+      description: "Download the VLV app and perform a quick, precise scan to create a digital 3D mould of your intimate features."
     },
     {
-      icon: <Printer className="h-12 w-12 text-vlv-purple" />,
+      icon: <TestTube className="h-12 w-12 text-vlv-purple" />,
       title: "Create Your Replica",
       description: "Our advanced 3D technology turns your scan into a custom, high-quality silicone replica that mirrors your skin tone for a truly personalised finish."
     },
     {
-      icon: <DollarSign className="h-12 w-12 text-vlv-purple" />,
-      title: "Sell & Earn",
+      icon: <PoundSterling className="h-12 w-12 text-vlv-purple" />,
+      title: "Sell",
       description: "Enjoy a straightforward 50/50 revenue share, £50 for you, £50 for VLV. We print and ship on demand, so you skip inventory hassles."
     }
   ];
@@ -45,14 +45,14 @@ const ProcessSection = () => {
               animation="slide-up" 
               delay={`delay-${(index + 1) * 100}` as any}
             >
-              <div className="relative group">
+              <div className="relative group h-full">
                 <div className="absolute inset-0 bg-gradient-to-b from-vlv-purple/10 to-vlv-burgundy/5 rounded-xl transform rotate-1 scale-[1.02] opacity-0 group-hover:opacity-100 transition-all duration-300" />
-                <div className="relative bg-card rounded-xl p-8 shadow-md border border-border transition-all duration-300 group-hover:translate-y-[-5px] h-full">
+                <div className="relative bg-card rounded-xl p-8 shadow-md border border-border transition-all duration-300 group-hover:translate-y-[-5px] h-full flex flex-col">
                   <div className="mb-6 p-3 bg-vlv-light rounded-lg inline-block">
                     {step.icon}
                   </div>
                   <h3 className="text-xl font-semibold mb-4">{step.title}</h3>
-                  <p className="text-muted-foreground">{step.description}</p>
+                  <p className="text-muted-foreground flex-grow">{step.description}</p>
                 </div>
               </div>
             </RevealOnScroll>
@@ -62,7 +62,7 @@ const ProcessSection = () => {
         <RevealOnScroll delay="delay-400">
           <div className="mt-16 text-center">
             <a href="#signup" className="button-primary">
-              Start Your Journey Now
+              Register Your Interest
             </a>
           </div>
         </RevealOnScroll>

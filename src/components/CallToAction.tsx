@@ -1,11 +1,37 @@
 
 import { useState } from 'react';
-import { Download, PoundSterling, Lock, Shield, Smartphone } from 'lucide-react';
+import { Check, PoundSterling, Lock, Shield, Smartphone } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import RevealOnScroll from './ui/RevealOnScroll';
 
 const CallToAction = () => {
   const { toast } = useToast();
+  const [email, setEmail] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Validate email
+    if (!email || !email.includes('@')) {
+      toast({
+        title: "Invalid email",
+        description: "Please enter a valid email address.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    // In a real app, you'd send this to your backend
+    // For now, just show a success message
+    toast({
+      title: "Interest registered!",
+      description: "Thank you for your interest in VLV.",
+    });
+    
+    setIsSubmitted(true);
+    setEmail('');
+  };
 
   return (
     <section id="signup" className="relative py-20">
@@ -16,10 +42,10 @@ const CallToAction = () => {
           <RevealOnScroll>
             <div className="text-center mb-12">
               <h2 className="section-heading mb-4">
-                Start Your Journey with <span className="gradient-text">VLV</span> Today
+                Register your interest with <span className="gradient-text">VLV</span>
               </h2>
               <p className="section-subheading mx-auto text-lg opacity-90">
-                Download the VLV Scanning App and join our community of successful creators
+                Join our community of successful creators
               </p>
             </div>
           </RevealOnScroll>
@@ -32,38 +58,36 @@ const CallToAction = () => {
             <RevealOnScroll animation="slide-up">
               <div className="relative">
                 <h3 className="text-2xl md:text-3xl font-semibold mb-6 text-center">
-                  Download the VLV App
+                  Register Your Interest
                 </h3>
                 <p className="text-lg mb-8 max-w-2xl mx-auto text-center text-muted-foreground">
-                  Create your account and start earning £50+ per sale with zero upfront costs
+                  Be the first to know when we launch. Earn £50+ per sale with zero upfront costs.
                 </p>
                 
-                <div className="flex flex-col sm:flex-row justify-center gap-6 mb-10">
-                  <a 
-                    href="https://inta.io/download" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="transition-transform hover:scale-105 duration-300"
-                  >
-                    <img 
-                      src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg" 
-                      alt="Download on App Store" 
-                      className="h-12"
-                    />
-                  </a>
-                  <a 
-                    href="https://inta.io/download" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="transition-transform hover:scale-105 duration-300"
-                  >
-                    <img 
-                      src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" 
-                      alt="Get it on Google Play" 
-                      className="h-14"
-                    />
-                  </a>
-                </div>
+                {!isSubmitted ? (
+                  <form onSubmit={handleSubmit} className="max-w-md mx-auto mb-10">
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Enter your email"
+                        className="flex-grow input-field focus:border-vlv-purple"
+                        required
+                      />
+                      <button type="submit" className="button-primary whitespace-nowrap">
+                        Register Interest
+                      </button>
+                    </div>
+                  </form>
+                ) : (
+                  <div className="bg-vlv-light/50 p-6 rounded-xl border border-vlv-purple/20 mb-10 max-w-md mx-auto">
+                    <div className="flex items-center gap-2 text-vlv-purple font-medium">
+                      <Check className="h-5 w-5" />
+                      <p>Thank you for registering your interest!</p>
+                    </div>
+                  </div>
+                )}
                 
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div className="bg-card/50 p-6 rounded-xl border border-border/50 hover:border-border/80 transition-colors">
@@ -77,10 +101,6 @@ const CallToAction = () => {
                     <p className="text-muted-foreground">Your data stays completely secure</p>
                   </div>
                 </div>
-                
-                <p className="text-sm text-muted-foreground text-center mt-8">
-                  Available for iOS and Android devices. Get started in minutes.
-                </p>
               </div>
             </RevealOnScroll>
           </div>
