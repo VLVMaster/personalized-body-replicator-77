@@ -48,7 +48,7 @@ const ProcessSection = () => {
               <div className="relative group h-full">
                 <div className="absolute inset-0 bg-gradient-to-b from-vlv-purple/10 to-vlv-burgundy/5 rounded-xl transform rotate-1 scale-[1.02] opacity-0 group-hover:opacity-100 transition-all duration-300" />
                 <div className="relative bg-card rounded-xl p-8 shadow-md border border-border transition-all duration-300 group-hover:translate-y-[-5px] h-full flex flex-col">
-                  <div className="mb-6 p-3 bg-vlv-light rounded-lg inline-block">
+                  <div className="mb-6 p-3 bg-vlv-light/50 rounded-lg inline-block" style={{ backgroundColor: "#FFDEE2" }}>
                     {step.icon}
                   </div>
                   <h3 className="text-xl font-semibold mb-4">{step.title}</h3>
