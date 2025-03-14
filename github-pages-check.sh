@@ -69,33 +69,92 @@ echo "DNS VERIFICATION:"
 echo "----------------"
 echo "Checking if domain points to GitHub Pages IPs..."
 GITHUB_IPS=("185.199.108.153" "185.199.109.153" "185.199.110.153" "185.199.111.153")
-DOMAIN_IPS=$(dig +short $(cat CNAME))
 
-GITHUB_IP_MATCH=false
-for ip in "${GITHUB_IPS[@]}"; do
-  if echo "$DOMAIN_IPS" | grep -q "$ip"; then
-    echo "✅ Found GitHub Pages IP: $ip"
-    GITHUB_IP_MATCH=true
+# Check if CNAME file exists
+if [ -f "CNAME" ]; then
+  DOMAIN=$(cat CNAME)
+  DOMAIN_IPS=$(dig +short $DOMAIN)
+  
+  # Test if the domain resolves at all
+  if [ -z "$DOMAIN_IPS" ]; then
+    echo "⚠️ WARNING: Domain $DOMAIN does not resolve to any IP address"
+    echo "This could indicate DNS propagation is still in progress, or DNS is misconfigured."
   else
-    echo "❌ Missing GitHub Pages IP: $ip"
-  fi
-done
+    GITHUB_IP_MATCH=false
+    for ip in "${GITHUB_IPS[@]}"; do
+      if echo "$DOMAIN_IPS" | grep -q "$ip"; then
+        echo "✅ Found GitHub Pages IP: $ip"
+        GITHUB_IP_MATCH=true
+      else
+        echo "❌ Missing GitHub Pages IP: $ip"
+      fi
+    done
 
-if [ "$GITHUB_IP_MATCH" = false ]; then
-  echo ""
-  echo "⚠️ WARNING: Your domain is not pointing to GitHub Pages IPs!"
-  echo "This is likely why you're still seeing your old website."
+    if [ "$GITHUB_IP_MATCH" = false ]; then
+      echo ""
+      echo "⚠️ WARNING: Your domain is not pointing to GitHub Pages IPs!"
+      echo "This is likely why you're still seeing your old website."
+      
+      # Check for Squarespace IPs
+      SQUARESPACE_IPS=("198.185.159." "198.49.23.")
+      SQUARESPACE_MATCH=false
+      
+      for squarespace_prefix in "${SQUARESPACE_IPS[@]}"; do
+        if echo "$DOMAIN_IPS" | grep -q "$squarespace_prefix"; then
+          echo "❌ DETECTED SQUARESPACE IP PREFIX: $squarespace_prefix"
+          SQUARESPACE_MATCH=true
+        fi
+      done
+      
+      if [ "$SQUARESPACE_MATCH" = true ]; then
+        echo "🚨 Your domain is still pointing to Squarespace!"
+        echo "You need to disconnect your domain from Squarespace before GitHub Pages will work."
+      fi
+    fi
+  fi
+else
+  echo "❓ Can't check DNS settings without a CNAME file"
+fi
+
+echo ""
+echo "SQUARESPACE DETECTION:"
+echo "---------------------"
+# Check if the website content appears to be from Squarespace
+if [ -f "CNAME" ]; then
+  DOMAIN=$(cat CNAME)
+  CURL_OUTPUT=$(curl -s -L "https://$DOMAIN" || echo "Failed to fetch")
+  
+  if echo "$CURL_OUTPUT" | grep -q "Squarespace"; then
+    echo "🚨 DETECTED: Your domain appears to be serving a Squarespace site!"
+    echo "You need to fully disconnect your domain from Squarespace."
+  elif echo "$CURL_OUTPUT" | grep -q "sqs_page"; then
+    echo "🚨 DETECTED: Squarespace code found in the served HTML!"
+    echo "Your domain is still connected to Squarespace."
+  fi
 fi
 
 echo ""
 echo "TROUBLESHOOTING CHECKLIST:"
 echo "------------------------"
-echo "1. ☐ Verify your domain registrar settings (A records + CNAME)"
-echo "2. ☐ Disconnect domain from previous host (e.g., Squarespace)"
+echo "1. ☐ Verify your domain registrar settings (A records + CNAME):"
+echo "   ✓ All four GitHub Pages IPs must be set as A records:"
+echo "     @ → 185.199.108.153"
+echo "     @ → 185.199.109.153" 
+echo "     @ → 185.199.110.153"
+echo "     @ → 185.199.111.153"
+echo "   ✓ www CNAME should point to yourusername.github.io"
+echo ""
+echo "2. ☐ DISCONNECT FROM SQUARESPACE! (CRITICAL STEP)"
+echo "   ✓ Log in to Squarespace"
+echo "   ✓ Go to Settings → Domains"
+echo "   ✓ Select your domain and click 'Disconnect'"
+echo "   ✓ Confirm the disconnection"
+echo "   ✓ This is ABSOLUTELY ESSENTIAL - Squarespace will override GitHub Pages"
+echo ""
 echo "3. ☐ Check GitHub repository settings has custom domain configured"
 echo "4. ☐ Confirm CNAME file exists in correct locations"
 echo "5. ☐ Wait 24-48 hours for DNS propagation"
-echo "6. ☐ Clear browser cache and DNS cache"
+echo "6. ☐ Clear browser cache and DNS cache (run dns-test.sh script)"
 echo "7. ☐ Try accessing site from different network/device"
 echo ""
 echo "You can force a new deployment by pushing a small change to GitHub."
