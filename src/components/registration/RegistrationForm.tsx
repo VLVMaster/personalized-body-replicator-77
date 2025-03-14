@@ -8,7 +8,7 @@ import { supabase, supabaseError, errorMessage } from '@/utils/supabase-client';
 
 interface RegistrationFormProps {
   onSuccess: () => void;
-  onClose: () => void;  // New prop to close the dialog
+  onClose: () => void;
 }
 
 const RegistrationForm = ({ onSuccess, onClose }: RegistrationFormProps) => {
@@ -46,14 +46,16 @@ const RegistrationForm = ({ onSuccess, onClose }: RegistrationFormProps) => {
             
             // Check for duplicate key error
             if (insertError.code === '23505') {
+              // Close the dialog first
+              onClose();
+              
+              // Then show the toast after dialog is closed
               toast({
                 title: "Already registered",
                 description: "You have already registered, we will be in touch.",
                 variant: "default"
               });
               
-              // Close the dialog but don't trigger success view
-              onClose();
               setEmail('');
               setError(null);
               setIsSubmitting(false);
@@ -97,13 +99,15 @@ const RegistrationForm = ({ onSuccess, onClose }: RegistrationFormProps) => {
         console.log('Demo mode: Would have submitted:', { email });
       }
       
+      // Close the dialog first
+      onClose();
+      
+      // Then show the success toast after dialog is closed
       toast({
         title: "Interest registered!",
         description: "We'll be in touch soon."
       });
       
-      // Close the dialog instead of showing success screen
-      onClose();
       setEmail('');
       setError(null);
     } catch (err: any) {
