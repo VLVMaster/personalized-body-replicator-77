@@ -1,9 +1,15 @@
 
+import { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import ContactForm from '@/components/contact/ContactForm';
 import Footer from '@/components/Footer';
 
 const Contact = () => {
+  useEffect(() => {
+    // Update the document title when the component mounts
+    document.title = 'Vulva La Replica';
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />

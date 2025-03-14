@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-mobile';
 import RegistrationDialog from './RegistrationDialog';
 
@@ -10,8 +10,47 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const isMobile = useIsMobile();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  // Check if we're on the Contact page
+  const isContactPage = location.pathname === '/contact';
+
+  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
+    e.preventDefault();
+    if (isContactPage) {
+      // Navigate to home page first, then to the section
+      navigate('/');
+      // Add a small delay to ensure the home page has loaded
+      setTimeout(() => {
+        const element = document.querySelector(target);
+        if (element) {
+          const navbarHeight = document.querySelector('header')?.getBoundingClientRect().height || 80;
+          window.scrollTo({
+            top: element.getBoundingClientRect().top + window.scrollY - navbarHeight,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
+    } else {
+      // Direct navigation on home page
+      const element = document.querySelector(target);
+      if (element) {
+        const navbarHeight = document.querySelector('header')?.getBoundingClientRect().height || 80;
+        window.scrollTo({
+          top: element.getBoundingClientRect().top + window.scrollY - navbarHeight,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    // Close mobile menu if open
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,9 +101,27 @@ const Navbar = () => {
           </button>
         ) : (
           <nav className="flex items-center space-x-1">
-            <a href="#how-it-works" className="nav-link text-sm">How It Works</a>
-            <a href="#benefits" className="nav-link text-sm">Why Choose VLR</a>
-            <a href="#market" className="nav-link text-sm">Earning Opportunity</a>
+            <a 
+              href="#how-it-works" 
+              className="nav-link text-sm"
+              onClick={(e) => handleNavigation(e, '#how-it-works')}
+            >
+              How It Works
+            </a>
+            <a 
+              href="#benefits" 
+              className="nav-link text-sm"
+              onClick={(e) => handleNavigation(e, '#benefits')}
+            >
+              Why Choose VLR
+            </a>
+            <a 
+              href="#market" 
+              className="nav-link text-sm"
+              onClick={(e) => handleNavigation(e, '#market')}
+            >
+              Earning Opportunity
+            </a>
             <Link to="/contact" className="nav-link text-sm">Contact Us</Link>
             <button 
               onClick={() => setIsDialogOpen(true)}
@@ -93,21 +150,21 @@ const Navbar = () => {
               <a 
                 href="#how-it-works" 
                 className="text-xl font-medium py-2 w-full text-center"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(e) => handleNavigation(e, '#how-it-works')}
               >
                 How It Works
               </a>
               <a 
                 href="#benefits" 
                 className="text-xl font-medium py-2 w-full text-center"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(e) => handleNavigation(e, '#benefits')}
               >
                 Why Choose VLR
               </a>
               <a 
                 href="#market" 
                 className="text-xl font-medium py-2 w-full text-center"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(e) => handleNavigation(e, '#market')}
               >
                 Earning Opportunity
               </a>

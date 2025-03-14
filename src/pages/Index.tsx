@@ -9,6 +9,11 @@ import CallToAction from '@/components/CallToAction';
 import Footer from '@/components/Footer';
 
 const Index = () => {
+  // Set document title
+  useEffect(() => {
+    document.title = 'Vulva La Replica';
+  }, []);
+
   // Smooth scrolling for anchor links
   useEffect(() => {
     const handleAnchorClick = (e: MouseEvent) => {
