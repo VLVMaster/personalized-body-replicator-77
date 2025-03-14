@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Input } from '@/components/ui/input';
@@ -104,7 +105,8 @@ const RegistrationForm = ({ onSuccess, onClose }: RegistrationFormProps) => {
       // Then show the success toast after dialog is closed
       toast({
         title: "Thank you!",
-        description: "Your interest has been registered. We'll be in touch soon."
+        description: "Your interest has been registered. We'll be in touch soon.",
+        variant: "default"
       });
       
       setEmail('');
