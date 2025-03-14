@@ -1,7 +1,6 @@
 
 import { useState } from 'react';
 import RevealOnScroll from './ui/RevealOnScroll';
-import { ArrowDown } from 'lucide-react';
 import RegistrationDialog from './RegistrationDialog';
 
 const HeroSection = () => {
@@ -40,7 +39,6 @@ const HeroSection = () => {
                 className="button-primary flex items-center justify-center gap-2 group"
               >
                 Register Your Interest
-                <ArrowDown size={18} className="transition-transform group-hover:translate-y-1" />
               </button>
             </div>
           </RevealOnScroll>
