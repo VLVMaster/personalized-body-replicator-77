@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-mobile';
 import RegistrationDialog from './RegistrationDialog';
 
@@ -47,9 +48,9 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <a href="/" className="flex items-center gap-2 relative z-50">
+        <Link to="/" className="flex items-center gap-2 relative z-50">
           <span className="text-2xl font-display font-bold text-vlv-purple">Vulva La Replica</span>
-        </a>
+        </Link>
         
         {isMobile ? (
           <button 
@@ -64,7 +65,7 @@ const Navbar = () => {
             <a href="#how-it-works" className="nav-link text-sm">How It Works</a>
             <a href="#benefits" className="nav-link text-sm">Why Choose VLV</a>
             <a href="#market" className="nav-link text-sm">Earning Opportunity</a>
-            <a href="/contact" className="nav-link text-sm">Contact Us</a>
+            <Link to="/contact" className="nav-link text-sm">Contact Us</Link>
             <button 
               onClick={() => setIsDialogOpen(true)}
               className="button-primary ml-4"
@@ -110,13 +111,13 @@ const Navbar = () => {
               >
                 Earning Opportunity
               </a>
-              <a 
-                href="/contact" 
+              <Link 
+                to="/contact" 
                 className="text-xl font-medium py-2 w-full text-center"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contact Us
-              </a>
+              </Link>
               <button
                 onClick={() => {
                   setIsMenuOpen(false);
