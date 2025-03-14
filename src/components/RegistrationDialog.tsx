@@ -28,7 +28,7 @@ const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => 
             Register Your Interest
           </DialogTitle>
           <DialogDescription>
-            Be among the first to experience VLR. Join our waitlist for early information on product launch.
+            Be among the first to experience VLV. Join our waitlist for early information on product launch.
           </DialogDescription>
         </DialogHeader>
         
