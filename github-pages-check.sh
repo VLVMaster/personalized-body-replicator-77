@@ -7,8 +7,8 @@ echo ""
 
 # Get repository details
 REPO_URL=$(git config --get remote.origin.url)
-REPO_NAME=$(basename -s .git $REPO_URL)
-USER_NAME=$(echo $REPO_URL | sed -n 's/.*github.com[:\/]\([^\/]*\).*/\1/p')
+REPO_NAME=$(basename -s .git $REPO_URL || echo "repository-name")
+USER_NAME=$(echo $REPO_URL | sed -n 's/.*github.com[:\/]\([^\/]*\).*/\1/p' || echo "username")
 
 echo "Repository: $USER_NAME/$REPO_NAME"
 echo ""
@@ -148,31 +148,57 @@ if [ -f "CNAME" ]; then
     WWW_RESOLVES=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 "https://$WWW_DOMAIN" || echo "Failed")
     if [[ "$WWW_RESOLVES" == "200" ]]; then
       echo "✅ www.$DOMAIN successfully loads a web page!"
+    elif [[ "$WWW_RESOLVES" == "301" ]] || [[ "$WWW_RESOLVES" == "302" ]]; then
+      echo "✅ www.$DOMAIN successfully redirects (status code: $WWW_RESOLVES)!"
+      echo "   This is normal if it redirects to the apex domain."
+      
+      # Check where it redirects to
+      REDIRECT_URL=$(curl -s -I -L "https://$WWW_DOMAIN" | grep -i "location:" | tail -1 | sed 's/location: //i' | tr -d '\r')
+      if [ ! -z "$REDIRECT_URL" ]; then
+        echo "   Redirects to: $REDIRECT_URL"
+      fi
     else
       echo "❌ www.$DOMAIN returned HTTP status $WWW_RESOLVES"
       echo "   This suggests the www subdomain is not correctly configured."
+      
+      # Test HTTP to see if it's a certificate issue
+      HTTP_WWW_RESOLVES=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 "http://$WWW_DOMAIN" || echo "Failed")
+      if [[ "$HTTP_WWW_RESOLVES" == "200" ]] || [[ "$HTTP_WWW_RESOLVES" == "301" ]] || [[ "$HTTP_WWW_RESOLVES" == "302" ]]; then
+        echo "   However, HTTP works! This suggests the SSL certificate isn't ready yet."
+        echo "   Wait 24 hours for GitHub to issue the SSL certificate."
+      else
+        echo "   HTTP also fails with status $HTTP_WWW_RESOLVES. DNS issue likely."
+      fi
     fi
   fi
 fi
 
 echo ""
-echo "SQUARESPACE DETECTION:"
-echo "---------------------"
-# Check if the website content appears to be from Squarespace
-if [ -f "CNAME" ]; then
-  DOMAIN=$(cat CNAME)
-  CURL_OUTPUT=$(curl -s -L "https://$DOMAIN" || echo "Failed to fetch")
-  
-  if echo "$CURL_OUTPUT" | grep -q "Squarespace"; then
-    echo "🚨 DETECTED: Your domain appears to be serving a Squarespace site!"
-    echo "You need to fully disconnect your domain from Squarespace."
-  elif echo "$CURL_OUTPUT" | grep -q "sqs_page"; then
-    echo "🚨 DETECTED: Squarespace code found in the served HTML!"
-    echo "Your domain is still connected to Squarespace."
-  fi
-fi
-
+echo "VERIFYING WWW SUBDOMAIN VALUE:"
+echo "----------------------------"
+echo "Based on your screenshot, your www CNAME has 'N/A' value. This is INCORRECT."
 echo ""
+echo "To fix this, follow these steps in Squarespace DNS settings:"
+echo "1. DELETE the existing www CNAME record completely"
+echo "2. CREATE a new CNAME record with these EXACT settings:"
+echo "   - HOST: www"
+echo "   - TYPE: CNAME" 
+echo "   - VALUE: $DOMAIN"
+echo "   - TTL: Automatic"
+echo ""
+echo "3. SAVE your changes and wait 24-48 hours for full DNS propagation"
+echo ""
+echo "TESTING WWW SUBDOMAIN DNS:"
+echo "------------------------"
+echo "Current status of www.$DOMAIN DNS records:"
+echo ""
+echo "CNAME lookup:"
+dig +short CNAME www.$DOMAIN
+echo ""
+echo "Direct IP resolution (should return GitHub IPs if configured correctly):"
+dig +short A www.$DOMAIN
+echo ""
+
 echo "TROUBLESHOOTING CHECKLIST:"
 echo "------------------------"
 echo "1. ☐ Verify your domain registrar settings (A records + CNAME):"
@@ -185,21 +211,18 @@ echo "   ✓ www CNAME should point to either:"
 echo "     - $DOMAIN (apex domain)"
 echo "     - username.github.io (GitHub Pages domain)"
 echo ""
-echo "2. ☐ DISCONNECT FROM SQUARESPACE! (CRITICAL STEP)"
-echo "   ✓ Log in to Squarespace"
-echo "   ✓ Go to Settings → Domains"
-echo "   ✓ Select your domain and click 'Disconnect'"
-echo "   ✓ Confirm the disconnection"
-echo "   ✓ This is ABSOLUTELY ESSENTIAL - Squarespace will override GitHub Pages"
+echo "2. ☐ GITHUB REPOSITORY SETTINGS:"
+echo "   ✓ Check Settings → Pages"
+echo "   ✓ Custom domain should be set to: $DOMAIN (without www)"
+echo "   ✓ 'Enforce HTTPS' should be checked if available"
 echo ""
-echo "3. ☐ Check GitHub repository settings has custom domain configured"
-echo "   ✓ Set custom domain to the apex domain (without www): $DOMAIN"
-echo "   ✓ Don't use www.domain.com in the GitHub settings field"
+echo "3. ☐ CONFIRM CNAME FILES ARE CORRECT:"
+echo "   ✓ Root CNAME: $DOMAIN"
+echo "   ✓ public/CNAME: $DOMAIN"
+echo "   ✓ dist/CNAME: $DOMAIN"
 echo ""
-echo "4. ☐ Confirm CNAME file exists in correct locations"
-echo "5. ☐ Wait 24-48 hours for DNS propagation"
-echo "6. ☐ Clear browser cache and DNS cache (run dns-test.sh script)"
-echo "7. ☐ Try accessing site from different network/device"
+echo "4. ☐ WAIT FOR DNS PROPAGATION (24-48 hours)"
+echo "5. ☐ CLEAR BROWSER CACHE or use incognito window for testing"
 echo ""
 echo "WWW SUBDOMAIN FIX INSTRUCTIONS:"
 echo "------------------------------"
@@ -211,4 +234,4 @@ echo "   Type: CNAME"
 echo "   Value: $DOMAIN (or username.github.io)"
 echo "   TTL: Automatic (or 3600)"
 echo ""
-echo "You can force a new deployment by pushing a small change to GitHub."
+echo "After making the change, run './fix-www-subdomain.sh' for more detailed testing"

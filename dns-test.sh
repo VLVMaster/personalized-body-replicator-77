@@ -182,6 +182,57 @@ else
   fi
 fi
 
+# NEW: Detailed test for www subdomain
+echo ""
+echo "DETAILED WWW SUBDOMAIN TEST:"
+echo "--------------------------"
+if [ ! -z "$WWW_CNAME" ]; then
+  echo "Running detailed tests for www.$DOMAIN..."
+  
+  # Test if the CNAME record is resolving correctly
+  echo "Testing if www.$DOMAIN CNAME record resolves properly..."
+  WWW_RESOLVES_TO=$(dig +short www.$DOMAIN)
+  
+  if [ -z "$WWW_RESOLVES_TO" ]; then
+    echo "❌ www.$DOMAIN doesn't resolve to any IP address"
+    echo "   This suggests your CNAME record is not working correctly."
+    echo "   The CNAME record exists but it's not resolving properly."
+  else
+    echo "✅ www.$DOMAIN resolves to: $WWW_RESOLVES_TO"
+    
+    # Check if it resolves to GitHub Pages IPs
+    GITHUB_WWW_MATCH=false
+    for ip in "${GITHUB_IPS[@]}"; do
+      if echo "$WWW_RESOLVES_TO" | grep -q "$ip"; then
+        GITHUB_WWW_MATCH=true
+        break
+      fi
+    done
+    
+    if [ "$GITHUB_WWW_MATCH" = true ]; then
+      echo "✅ www.$DOMAIN ultimately resolves to GitHub Pages IPs!"
+      echo "   This looks good, but you might still need to wait for HTTPS certificate."
+    else
+      echo "⚠️ www.$DOMAIN resolves to non-GitHub Pages IPs."
+      echo "   This suggests your CNAME is pointing to something other than GitHub Pages."
+    fi
+  fi
+  
+  # Test if GitHub is returning the correct content
+  echo ""
+  echo "Testing if GitHub Pages is serving content for www.$DOMAIN..."
+  WWW_CONTENT=$(curl -s -L -H "Host: www.$DOMAIN" "https://185.199.108.153" || echo "Failed")
+  
+  if [ "$WWW_CONTENT" = "Failed" ]; then
+    echo "⚠️ Failed to fetch content for www.$DOMAIN from GitHub Pages servers"
+  elif echo "$WWW_CONTENT" | grep -q "GitHub Pages" || echo "$WWW_CONTENT" | grep -q "<html"; then
+    echo "✅ GitHub Pages appears to be serving content for www.$DOMAIN"
+  else
+    echo "⚠️ Unexpected content returned for www.$DOMAIN"
+  fi
+fi
+echo ""
+
 # Check for DNS caching
 echo ""
 echo "CHECKING DIFFERENT DNS SERVERS (for caching issues):"
@@ -206,6 +257,10 @@ CURL_UA="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) 
 curl -I -A "$CURL_UA" -L "https://$DOMAIN?nocache=$(date +%s)" | head -15
 echo ""
 
+echo "HTTP status code and headers from www.$DOMAIN:"
+curl -I -A "$CURL_UA" -L "https://www.$DOMAIN?nocache=$(date +%s)" | head -15
+echo ""
+
 echo "=========================================================="
 echo "SUMMARY AND RECOMMENDATIONS:"
 echo "=========================================================="
@@ -227,33 +282,55 @@ else
   HAS_SQUARESPACE=false
 fi
 
+# Check if the www CNAME exists and works
+WWW_CNAME_EXISTS=false
+WWW_CNAME_WORKS=false
+
+if [ ! -z "$WWW_CNAME" ]; then
+  WWW_CNAME_EXISTS=true
+  WWW_HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 "https://www.$DOMAIN" || echo "Failed")
+  if [ "$WWW_HTTP_CODE" = "200" ] || [ "$WWW_HTTP_CODE" = "301" ] || [ "$WWW_HTTP_CODE" = "302" ]; then
+    WWW_CNAME_WORKS=true
+  fi
+fi
+
 # Provide a summary based on findings
 if [ "$GITHUB_IP_COUNT" -eq 4 ] && [ "$HAS_SQUARESPACE" = false ]; then
   echo "✅ GOOD NEWS: DNS appears to be correctly configured for GitHub Pages!"
   
   # Check specifically for www subdomain issues
-  if [ -z "$WWW_CNAME" ]; then
-    echo "⚠️ But your WWW subdomain is not configured correctly."
+  if [ "$WWW_CNAME_EXISTS" = false ]; then
+    echo "⚠️ But your WWW subdomain is not configured at all."
     echo ""
     echo "FIXING WWW SUBDOMAIN ISSUE:"
     echo "-------------------------"
-    echo "In Squarespace DNS settings, you need to add or fix your CNAME record:"
+    echo "In Squarespace DNS settings, you need to add a CNAME record:"
     echo ""
     echo "Type: CNAME"
     echo "Host: www"
     echo "Value: $DOMAIN (or your GitHub username.github.io)"
     echo "TTL: Automatic (or 3600)"
+  elif [ "$WWW_CNAME_EXISTS" = true ] && [ "$WWW_CNAME_WORKS" = false ]; then
+    echo "⚠️ Your www subdomain has a CNAME record but isn't working correctly."
     echo ""
-    echo "Your screenshot shows the CNAME record has an N/A value, which is incorrect."
-    echo "Edit the record and insert the proper value as indicated above."
-  elif [ "$WWW_HTTP_CODE" != "200" ] && [ "$WWW_HTTP_CODE" != "301" ] && [ "$WWW_HTTP_CODE" != "302" ]; then
-    echo "⚠️ Your www subdomain has a CNAME record but isn't working yet."
-    echo "This could be due to:"
-    echo "1. DNS propagation delay (wait 24-48 hours)"
-    echo "2. The CNAME record has an incorrect value"
-    echo "3. SSL certificate for www subdomain is not ready yet"
+    echo "FIXING WWW SUBDOMAIN ISSUE:"
+    echo "-------------------------"
+    echo "1. Verify the CNAME record value (it shouldn't be N/A or empty):"
+    echo "   Current CNAME value: $WWW_CNAME"
+    echo "   Correct value should be: $DOMAIN or your-username.github.io"
+    echo ""
+    echo "2. IMPORTANT: Make sure you have a custom domain set up in GitHub repository settings:"
+    echo "   - Go to your GitHub repository"
+    echo "   - Navigate to Settings → Pages"
+    echo "   - Ensure the custom domain is set to: $DOMAIN (without www)"
+    echo "   - Enforce HTTPS should be checked if available"
+    echo ""
+    echo "3. If changing DNS settings, wait 24-48 hours for full propagation"
+    echo "   The GitHub certificate for www may take extra time to provision"
   else
     echo "✅ Both your apex domain and www subdomain appear to be correctly configured!"
+    echo "If you're still having issues, it might be a caching problem or temporary GitHub issue."
+    echo "Try clearing your browser cache or using a different device/network."
   fi
   
 elif [ "$GITHUB_IP_COUNT" -eq 0 ] && [ "$HAS_SQUARESPACE" = true ]; then
@@ -279,28 +356,34 @@ else
 fi
 
 echo ""
-echo "REQUIRED DNS CONFIGURATION FOR GITHUB PAGES:"
-echo "-------------------------------------------"
-echo "At your domain registrar or Squarespace DNS settings, ensure these records exist:"
-echo ""
-echo "A Records (all four are required):"
-echo "  @ → 185.199.108.153"
-echo "  @ → 185.199.109.153"
-echo "  @ → 185.199.110.153"
-echo "  @ → 185.199.111.153"
-echo ""
-echo "CNAME Record:"
-echo "  www → $DOMAIN or your-username.github.io"
-echo ""
-echo "FIXING YOUR WWW SUBDOMAIN IN SQUARESPACE:"
+echo "FIX FOR 'N/A' CNAME RECORD IN SQUARESPACE:"
 echo "---------------------------------------"
-echo "Based on your screenshot, your www CNAME record has an 'N/A' value."
-echo "This needs to be corrected:"
+echo "Based on your screenshot, your CNAME record has an 'N/A' value, which is incorrect."
 echo ""
-echo "1. Go to Squarespace DNS settings"
-echo "2. Find the www CNAME record"
-echo "3. Edit it to have a proper VALUE (not 'N/A')"
-echo "4. Set the value to: $DOMAIN (or vlvmaster.github.io)"
+echo "CORRECT STEPS TO FIX THIS:"
+echo "1. Log in to Squarespace DNS manager"
+echo "2. DELETE the existing www CNAME record that has 'N/A' as its value"
+echo "3. ADD a NEW CNAME record with these exact settings:"
+echo "   - HOST: www"
+echo "   - TYPE: CNAME"
+echo "   - VALUE: $DOMAIN"
+echo "   - TTL: Automatic"
 echo ""
-echo "After making these changes, wait 24-48 hours for full DNS propagation."
-echo "Run this script again to check if changes have taken effect."
+echo "4. Save changes and wait for DNS propagation (up to 24-48 hours)"
+echo ""
+echo "ALSO VERIFY GITHUB SETTINGS:"
+echo "-------------------------"
+echo "1. In your GitHub repository, go to Settings → Pages"
+echo "2. Ensure custom domain is set to: $DOMAIN (without the www)"
+echo "3. Make sure 'Enforce HTTPS' is checked if available"
+echo "4. If you've recently changed settings, trigger a new build by pushing a small change"
+echo ""
+echo "RECOMMENDED TESTING TOOLS:"
+echo "-----------------------"
+echo "Use these online tools to check your DNS configuration:"
+echo "- https://dnschecker.org/ - Check your DNS records from multiple locations"
+echo "- https://www.whatsmydns.net/ - Verify DNS propagation worldwide"
+echo "- https://tools.pingdom.com/ - Check if your site is accessible"
+echo ""
+echo "If issues persist after 48 hours, consider reaching out to Squarespace support about"
+echo "properly disconnecting your domain and setting up the CNAME record correctly."
