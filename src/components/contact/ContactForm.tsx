@@ -56,6 +56,15 @@ const ContactForm = () => {
         throw new Error('Supabase client is not initialized');
       }
       
+      // Log the request to help with debugging
+      console.log('Sending contact message to Supabase:', {
+        name,
+        email,
+        subject: subject || 'Contact Form Submission',
+        message,
+        created_at: new Date().toISOString()
+      });
+      
       // Insert the contact message into the 'contact_messages' table
       const { error: insertError, data } = await supabase
         .from('contact_messages')
@@ -65,12 +74,20 @@ const ContactForm = () => {
           subject: subject || 'Contact Form Submission',
           message,
           created_at: new Date().toISOString()
-        }])
-        .select();
+        }]);
+      
+      // Log the complete response from Supabase
+      console.log('Supabase insert response:', { error: insertError, data });
         
       if (insertError) {
         console.error('Error saving contact form:', insertError);
-        throw new Error(insertError.message || 'Failed to submit form. Please try again.');
+        
+        // Provide a more specific error message based on the error code
+        if (insertError.code === '42501') {
+          throw new Error('Permission denied. Please check your Supabase RLS policies.');
+        } else {
+          throw new Error(insertError.message || 'Failed to submit form. Please try again.');
+        }
       }
       
       console.log('Contact form submitted successfully:', data);
