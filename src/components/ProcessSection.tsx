@@ -1,5 +1,5 @@
 
-import { Scan, PoundSterling } from 'lucide-react';
+import { Scan, Printer, PoundSterling } from 'lucide-react';
 import RevealOnScroll from './ui/RevealOnScroll';
 
 const ProcessSection = () => {
@@ -10,7 +10,7 @@ const ProcessSection = () => {
       description: "Download the VLV app and perform a quick, precise scan to create a digital 3D mould of your intimate features."
     },
     {
-      icon: <img src="/lovable-uploads/c9ae3ad5-3de0-4c3d-ad75-d6e979b12519.png" alt="Mould icon" className="h-12 w-12 text-vlv-purple" />,
+      icon: <Printer className="h-12 w-12 text-vlv-purple" />,
       title: "Create Your Replica",
       description: "Our advanced 3D technology turns your scan into a custom, high-quality silicone replica that mirrors your skin tone for a truly personalised finish."
     },
