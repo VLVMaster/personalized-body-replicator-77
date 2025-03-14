@@ -12,6 +12,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { createClient } from '@supabase/supabase-js';
+import { Textarea } from '@/components/ui/textarea';
 
 // Initialize Supabase client
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
@@ -26,6 +27,7 @@ interface RegistrationDialogProps {
 const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => {
   const { toast } = useToast();
   const [email, setEmail] = useState('');
+  const [domainPreference, setDomainPreference] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -48,11 +50,12 @@ const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => 
     try {
       setIsSubmitting(true);
       
-      // Store the email in Supabase
+      // Store the email and domain preference in Supabase
       const { error: supabaseError } = await supabase
         .from('registrations')
         .insert([{ 
           email, 
+          domain_preference: domainPreference,
           created_at: new Date().toISOString(),
           source: 'VLV Registration Form'
         }]);
@@ -61,7 +64,7 @@ const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => 
         throw new Error(supabaseError.message);
       }
       
-      console.log('Email submitted to Supabase:', email);
+      console.log('Registration submitted to Supabase:', { email, domainPreference });
       
       toast({
         title: "Interest registered!",
@@ -70,6 +73,7 @@ const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => 
       
       setIsSubmitted(true);
       setEmail('');
+      setDomainPreference('');
       setError(null);
     } catch (err) {
       console.error('Registration error:', err);
@@ -127,6 +131,22 @@ const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => 
                   required
                   disabled={isSubmitting}
                 />
+                
+                <div>
+                  <label htmlFor="domain-preference" className="block text-sm font-medium text-muted-foreground mb-1">
+                    Domain Preference (optional)
+                  </label>
+                  <Textarea
+                    id="domain-preference"
+                    value={domainPreference}
+                    onChange={(e) => setDomainPreference(e.target.value)}
+                    placeholder="What domain name would you like? (e.g., yourname.com)"
+                    className="flex-grow focus:border-vlv-purple"
+                    disabled={isSubmitting}
+                    rows={2}
+                  />
+                </div>
+                
                 <button 
                   type="submit" 
                   className="button-primary relative" 
