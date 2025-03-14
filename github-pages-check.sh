@@ -116,6 +116,45 @@ else
   echo "❓ Can't check DNS settings without a CNAME file"
 fi
 
+# Now explicitly check the WWW subdomain
+if [ -f "CNAME" ]; then
+  DOMAIN=$(cat CNAME)
+  echo ""
+  echo "WWW SUBDOMAIN CHECK:"
+  echo "-------------------"
+  WWW_DOMAIN="www.$DOMAIN"
+  WWW_CNAME=$(dig +short CNAME $WWW_DOMAIN)
+  
+  if [ -z "$WWW_CNAME" ]; then
+    echo "❌ ERROR: www.$DOMAIN doesn't have a CNAME record"
+    echo "   You need to add a CNAME record in your DNS settings:"
+    echo "   www → $DOMAIN or your-username.github.io"
+  else
+    echo "✅ www.$DOMAIN has a CNAME record pointing to: $WWW_CNAME"
+    
+    # Verify if the CNAME is correct
+    if [[ "$WWW_CNAME" == *"github.io"* ]]; then
+      echo "   This appears to be a GitHub Pages username domain, which should work."
+    elif [[ "$WWW_CNAME" == *"$DOMAIN"* ]]; then
+      echo "   This points to your apex domain, which is a good configuration."
+    else
+      echo "⚠️ WARNING: Your www CNAME points to an unexpected destination."
+      echo "   For GitHub Pages, it should point to either:"
+      echo "   - $DOMAIN (your apex domain)"
+      echo "   - your-username.github.io (your GitHub Pages domain)"
+    fi
+    
+    # Test if www resolves
+    WWW_RESOLVES=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 "https://$WWW_DOMAIN" || echo "Failed")
+    if [[ "$WWW_RESOLVES" == "200" ]]; then
+      echo "✅ www.$DOMAIN successfully loads a web page!"
+    else
+      echo "❌ www.$DOMAIN returned HTTP status $WWW_RESOLVES"
+      echo "   This suggests the www subdomain is not correctly configured."
+    fi
+  fi
+fi
+
 echo ""
 echo "SQUARESPACE DETECTION:"
 echo "---------------------"
@@ -142,7 +181,9 @@ echo "     @ → 185.199.108.153"
 echo "     @ → 185.199.109.153" 
 echo "     @ → 185.199.110.153"
 echo "     @ → 185.199.111.153"
-echo "   ✓ www CNAME should point to yourusername.github.io"
+echo "   ✓ www CNAME should point to either:"
+echo "     - $DOMAIN (apex domain)"
+echo "     - username.github.io (GitHub Pages domain)"
 echo ""
 echo "2. ☐ DISCONNECT FROM SQUARESPACE! (CRITICAL STEP)"
 echo "   ✓ Log in to Squarespace"
@@ -152,9 +193,22 @@ echo "   ✓ Confirm the disconnection"
 echo "   ✓ This is ABSOLUTELY ESSENTIAL - Squarespace will override GitHub Pages"
 echo ""
 echo "3. ☐ Check GitHub repository settings has custom domain configured"
+echo "   ✓ Set custom domain to the apex domain (without www): $DOMAIN"
+echo "   ✓ Don't use www.domain.com in the GitHub settings field"
+echo ""
 echo "4. ☐ Confirm CNAME file exists in correct locations"
 echo "5. ☐ Wait 24-48 hours for DNS propagation"
 echo "6. ☐ Clear browser cache and DNS cache (run dns-test.sh script)"
 echo "7. ☐ Try accessing site from different network/device"
+echo ""
+echo "WWW SUBDOMAIN FIX INSTRUCTIONS:"
+echo "------------------------------"
+echo "Based on your screenshot in Squarespace DNS settings:"
+echo "1. Your www CNAME appears to be misconfigured with 'N/A' value"
+echo "2. Set the correct CNAME record value:"
+echo "   Host: www"
+echo "   Type: CNAME"
+echo "   Value: $DOMAIN (or username.github.io)"
+echo "   TTL: Automatic (or 3600)"
 echo ""
 echo "You can force a new deployment by pushing a small change to GitHub."
