@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Input } from '@/components/ui/input';
@@ -42,6 +41,19 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
             
           if (insertError) {
             console.error('Supabase insert error:', insertError);
+            
+            // Check for duplicate key error
+            if (insertError.code === '23505') {
+              toast({
+                title: "Already registered",
+                description: "You have already registered, we will be in touch.",
+                variant: "default"
+              });
+              onSuccess(); // Proceed to success screen even for duplicate
+              setEmail('');
+              setError(null);
+              return;
+            }
             
             // Check for RLS policy error specifically
             if (insertError.message.includes('row-level security') || insertError.code === 'PGRST301') {
