@@ -23,7 +23,7 @@ const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-lg w-[90vw]">
         <DialogHeader>
           <DialogTitle>
             Register Your Interest

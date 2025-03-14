@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Input } from '@/components/ui/input';
@@ -51,7 +50,7 @@ const RegistrationForm = ({ onSuccess, onClose }: RegistrationFormProps) => {
               
               // Then show the toast after dialog is closed
               toast({
-                title: "Already registered",
+                title: "Thank you!",
                 description: "You have already registered, we will be in touch.",
                 variant: "default"
               });
@@ -104,8 +103,8 @@ const RegistrationForm = ({ onSuccess, onClose }: RegistrationFormProps) => {
       
       // Then show the success toast after dialog is closed
       toast({
-        title: "Interest registered!",
-        description: "We'll be in touch soon."
+        title: "Thank you!",
+        description: "Your interest has been registered. We'll be in touch soon."
       });
       
       setEmail('');
