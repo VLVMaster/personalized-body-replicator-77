@@ -8,6 +8,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { supabase } from '@/utils/supabase-client';
 import { z } from 'zod';
+import { v4 as uuidv4 } from 'uuid';
 
 // Define a validation schema for the contact form
 const contactFormSchema = z.object({
@@ -56,8 +57,12 @@ const ContactForm = () => {
         throw new Error('Supabase client is not initialized');
       }
       
+      // Generate a unique ID for this message
+      const messageId = uuidv4();
+      
       // Log the request to help with debugging
       console.log('Sending contact message to Supabase:', {
+        id: messageId,
         name,
         email,
         subject: subject || 'Contact Form Submission',
@@ -69,6 +74,7 @@ const ContactForm = () => {
       const { error: insertError, data } = await supabase
         .from('contact_messages')
         .insert([{
+          id: messageId,
           name,
           email,
           subject: subject || 'Contact Form Submission',
