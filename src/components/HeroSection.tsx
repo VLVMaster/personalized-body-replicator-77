@@ -20,26 +20,14 @@ const HeroSection = () => {
       <div className="section-container grid md:grid-cols-1 gap-12 items-center z-10 max-w-3xl mx-auto text-center">
         <div>
           <RevealOnScroll animation="slide-up">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-tight text-balance text-foreground">
-              {isMobile ? (
-                <>
-                  Your Body, <br />
-                  <span className="gradient-text">Perfectly Replicated</span>
-                </>
-              ) : (
-                <>
-                  Your Body, <span className="gradient-text">Perfectly Replicated</span>
-                </>
-              )}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-tight text-balance text-foreground whitespace-nowrap">
+              Your Body, <span className="gradient-text">Perfectly Replicated</span>
             </h1>
           </RevealOnScroll>
           
           <RevealOnScroll animation="slide-up" delay="delay-300">
-            <p className="text-lg md:text-xl text-foreground opacity-90 mb-4 mx-auto">
-              At VLV, we help OnlyFans creators transform their most intimate feature into personalised replica sex toy.
-            </p>
-            <p className="text-lg md:text-xl text-foreground opacity-90 mb-8 mx-auto font-medium">
-              <strong>Simply scan, sell, and profit.</strong>
+            <p className="text-lg md:text-xl text-foreground opacity-90 mb-8 mx-auto">
+              At VLV, we help OnlyFans creators transform their most intimate feature into personalised replica sex toy. Simply scan, sell, and profit.
             </p>
           </RevealOnScroll>
           
