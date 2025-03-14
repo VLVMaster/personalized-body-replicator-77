@@ -6,6 +6,7 @@
   margin: 0;
   padding: 0;
   text-align: left;
+  font-family: 'Inter', sans-serif;
 }
 
 .logo {
@@ -44,4 +45,9 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Ensure consistent font for VLogo */
+.font-inter {
+  font-family: 'Inter', sans-serif;
 }
