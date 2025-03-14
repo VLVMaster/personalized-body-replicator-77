@@ -9,7 +9,6 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 import RegistrationForm from './registration/RegistrationForm';
-import RegistrationSuccess from './registration/RegistrationSuccess';
 
 interface RegistrationDialogProps {
   open: boolean;
@@ -17,17 +16,9 @@ interface RegistrationDialogProps {
 }
 
 const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  
-  // Reset state when dialog is opened
-  useEffect(() => {
-    if (open) {
-      setIsSubmitted(false);
-    }
-  }, [open]);
-
-  const handleSuccess = () => {
-    setIsSubmitted(true);
+  // Function to close the dialog
+  const handleClose = () => {
+    onOpenChange(false);
   };
 
   return (
@@ -35,20 +26,17 @@ const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => 
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>
-            {isSubmitted ? 'Thank You!' : 'Register Your Interest'}
+            Register Your Interest
           </DialogTitle>
           <DialogDescription>
-            {isSubmitted 
-              ? 'We appreciate your interest. We\'ll be in touch soon with more details.'
-              : 'Be among the first to experience VLV. Join our waitlist for early access and exclusive updates.'}
+            Be among the first to experience VLV. Join our waitlist for early access and exclusive updates.
           </DialogDescription>
         </DialogHeader>
         
-        {!isSubmitted ? (
-          <RegistrationForm onSuccess={handleSuccess} />
-        ) : (
-          <RegistrationSuccess />
-        )}
+        <RegistrationForm 
+          onSuccess={handleClose} 
+          onClose={handleClose} 
+        />
       </DialogContent>
     </Dialog>
   );

@@ -8,9 +8,10 @@ import { supabase, supabaseError, errorMessage } from '@/utils/supabase-client';
 
 interface RegistrationFormProps {
   onSuccess: () => void;
+  onClose: () => void;  // New prop to close the dialog
 }
 
-const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
+const RegistrationForm = ({ onSuccess, onClose }: RegistrationFormProps) => {
   const { toast } = useToast();
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -50,7 +51,9 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
                 description: "You have already registered, we will be in touch.",
                 variant: "default"
               });
-              // Don't call onSuccess() for duplicates to prevent the success dialog from showing
+              
+              // Close the dialog but don't trigger success view
+              onClose();
               setEmail('');
               setError(null);
               setIsSubmitting(false);
@@ -99,7 +102,8 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
         description: "We'll be in touch soon."
       });
       
-      onSuccess();
+      // Close the dialog instead of showing success screen
+      onClose();
       setEmail('');
       setError(null);
     } catch (err: any) {
