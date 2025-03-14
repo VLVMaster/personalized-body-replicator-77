@@ -1,5 +1,5 @@
 
-import { Scan, TestTube, PoundSterling } from 'lucide-react';
+import { Scan, PoundSterling } from 'lucide-react';
 import RevealOnScroll from './ui/RevealOnScroll';
 
 const ProcessSection = () => {
@@ -10,14 +10,14 @@ const ProcessSection = () => {
       description: "Download the VLV app and perform a quick, precise scan to create a digital 3D mould of your intimate features."
     },
     {
-      icon: <TestTube className="h-12 w-12 text-vlv-purple" />,
+      icon: <img src="/lovable-uploads/c9ae3ad5-3de0-4c3d-ad75-d6e979b12519.png" alt="Mould icon" className="h-12 w-12 text-vlv-purple" />,
       title: "Create Your Replica",
       description: "Our advanced 3D technology turns your scan into a custom, high-quality silicone replica that mirrors your skin tone for a truly personalised finish."
     },
     {
       icon: <PoundSterling className="h-12 w-12 text-vlv-purple" />,
-      title: "Sell",
-      description: "Enjoy a straightforward 50/50 revenue share, £50 for you, £50 for VLV. We print and ship on demand, so you skip inventory hassles."
+      title: "Sell to Your Fans",
+      description: "Sell directly to fans and enjoy a straightforward 50/50 revenue share; £50 for you, £50 for VLV. We print and ship on demand directly to customers, so you skip inventory hassles."
     }
   ];
 
@@ -48,7 +48,7 @@ const ProcessSection = () => {
               <div className="relative group h-full">
                 <div className="absolute inset-0 bg-gradient-to-b from-vlv-purple/10 to-vlv-burgundy/5 rounded-xl transform rotate-1 scale-[1.02] opacity-0 group-hover:opacity-100 transition-all duration-300" />
                 <div className="relative bg-card rounded-xl p-8 shadow-md border border-border transition-all duration-300 group-hover:translate-y-[-5px] h-full flex flex-col">
-                  <div className="mb-6 p-3 bg-vlv-light/50 rounded-lg inline-block" style={{ backgroundColor: "#FFDEE2" }}>
+                  <div className="mb-6 inline-flex items-center justify-center p-2 rounded-lg" style={{ backgroundColor: "#FFDEE2", width: "48px", height: "48px" }}>
                     {step.icon}
                   </div>
                   <h3 className="text-xl font-semibold mb-4">{step.title}</h3>
