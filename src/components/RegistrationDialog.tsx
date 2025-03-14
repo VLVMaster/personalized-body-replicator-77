@@ -13,6 +13,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
 import { createClient } from '@supabase/supabase-js';
 
 // Initialize Supabase client safely
@@ -21,8 +22,12 @@ const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 // Create a safer client initialization
 let supabase: any = null;
-if (supabaseUrl && supabaseKey) {
-  supabase = createClient(supabaseUrl, supabaseKey);
+try {
+  if (supabaseUrl && supabaseKey) {
+    supabase = createClient(supabaseUrl, supabaseKey);
+  }
+} catch (error) {
+  console.error('Error initializing Supabase client:', error);
 }
 
 interface RegistrationDialogProps {
@@ -41,9 +46,9 @@ const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => 
 
   // Check if Supabase is properly configured
   useEffect(() => {
-    if (!supabaseUrl || !supabaseKey) {
+    if (!supabaseUrl || !supabaseKey || !supabase) {
       setSupabaseError(true);
-      console.error('Supabase URL or Anon Key is missing');
+      console.warn('Supabase URL or Anon Key is missing - running in demo mode');
     }
   }, []);
 
@@ -67,27 +72,31 @@ const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => 
     try {
       setIsSubmitting(true);
       
-      // Check if Supabase is initialized
-      if (!supabase) {
-        throw new Error('Supabase client is not initialized');
+      // If Supabase is initialized, store data
+      if (supabase) {
+        try {
+          const { error: supabaseError } = await supabase
+            .from('registrations')
+            .insert([{ 
+              email, 
+              domain_preference: domainPreference,
+              created_at: new Date().toISOString(),
+              source: 'VLV Registration Form'
+            }]);
+            
+          if (supabaseError) {
+            console.error('Supabase error:', supabaseError);
+            // Don't throw here, just log and continue to show success
+          } else {
+            console.log('Registration submitted to Supabase:', { email, domainPreference });
+          }
+        } catch (supabaseErr) {
+          console.error('Failed to connect to Supabase:', supabaseErr);
+          // Don't throw, continue to show success
+        }
+      } else {
+        console.log('Demo mode: Would have submitted:', { email, domainPreference });
       }
-
-      // Store the email and domain preference in Supabase
-      const { error: supabaseError } = await supabase
-        .from('registrations')
-        .insert([{ 
-          email, 
-          domain_preference: domainPreference,
-          created_at: new Date().toISOString(),
-          source: 'VLV Registration Form'
-        }]);
-        
-      if (supabaseError) {
-        console.error('Supabase error:', supabaseError);
-        throw new Error(supabaseError.message);
-      }
-      
-      console.log('Registration submitted to Supabase:', { email, domainPreference });
       
       toast({
         title: "Interest registered!",
@@ -100,22 +109,6 @@ const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => 
       setError(null);
     } catch (err: any) {
       console.error('Registration error:', err);
-      
-      // Fall back to client-side success if it's just a Supabase issue
-      if (err.message && (err.message.includes('Supabase') || err.message.includes('network'))) {
-        console.log('Falling back to local success due to Supabase error');
-        
-        toast({
-          title: "Interest registered!",
-          description: "We'll be in touch soon."
-        });
-        
-        setIsSubmitted(true);
-        setEmail('');
-        setDomainPreference('');
-        return;
-      }
-      
       setError(err.message || 'Failed to register. Please try again.');
     } finally {
       setIsSubmitting(false);
@@ -185,13 +178,13 @@ const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => 
                   />
                 </div>
                 
-                <button 
+                <Button 
                   type="submit" 
-                  className="button-primary relative mt-4 w-full" 
+                  className="mt-4 w-full" 
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? 'Submitting...' : 'Submit'}
-                </button>
+                </Button>
               </div>
             </form>
           </>
@@ -206,9 +199,9 @@ const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => 
               Thanks for joining our waitlist! We're excited to have you on board.
             </p>
             <DialogClose asChild>
-              <button className="button-secondary">
+              <Button variant="outline">
                 Close
-              </button>
+              </Button>
             </DialogClose>
           </div>
         )}
