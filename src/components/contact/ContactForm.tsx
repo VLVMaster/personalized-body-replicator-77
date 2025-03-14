@@ -7,6 +7,15 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { supabase } from '@/utils/supabase-client';
+import { z } from 'zod';
+
+// Define a validation schema for the contact form
+const contactFormSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  email: z.string().email('Please enter a valid email address'),
+  subject: z.string().optional(),
+  message: z.string().min(1, 'Message is required'),
+});
 
 const ContactForm = () => {
   const { toast } = useToast();
@@ -20,49 +29,51 @@ const ContactForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic validation
-    if (!name || !email || !message) {
-      setError('Please fill out all required fields');
-      return;
-    }
+    setError(null);
     
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError('Please enter a valid email address');
+    // Validate the form data
+    try {
+      contactFormSchema.parse({
+        name,
+        email,
+        subject,
+        message,
+      });
+    } catch (validationError) {
+      if (validationError instanceof z.ZodError) {
+        setError(validationError.errors[0].message);
+        return;
+      }
+      
+      setError('Invalid form data. Please check your inputs.');
       return;
     }
     
     setIsSubmitting(true);
-    setError(null);
     
     try {
-      // In a real implementation, this would send the data to a server
-      // For now, we'll simulate a successful submission
-      
-      if (supabase) {
-        try {
-          const { error: insertError } = await supabase
-            .from('contact_messages')
-            .insert([{
-              name,
-              email,
-              subject: subject || 'Contact Form Submission',
-              message,
-              created_at: new Date().toISOString()
-            }]);
-            
-          if (insertError) {
-            console.error('Error saving contact form:', insertError);
-            throw new Error(insertError.message);
-          }
-        } catch (err) {
-          console.error('Failed to save contact form to Supabase:', err);
-          // Continue to show success message even if db insert fails
-          // The admin should set up email forwarding via a Supabase Edge Function
-        }
+      if (!supabase) {
+        throw new Error('Supabase client is not initialized');
       }
       
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Insert the contact message into the 'contact_messages' table
+      const { error: insertError, data } = await supabase
+        .from('contact_messages')
+        .insert([{
+          name,
+          email,
+          subject: subject || 'Contact Form Submission',
+          message,
+          created_at: new Date().toISOString()
+        }])
+        .select();
+        
+      if (insertError) {
+        console.error('Error saving contact form:', insertError);
+        throw new Error(insertError.message);
+      }
+      
+      console.log('Contact form submitted successfully:', data);
       
       // Reset form
       setName('');
