@@ -1,8 +1,9 @@
 
 #!/bin/bash
 
-echo "DNS Troubleshooting for Custom Domain on GitHub Pages"
-echo "===================================================="
+echo "=========================================================="
+echo "   DNS Troubleshooting for Custom Domain on GitHub Pages"
+echo "=========================================================="
 echo ""
 
 # Get the custom domain from the CNAME file
@@ -10,30 +11,16 @@ DOMAIN=$(cat CNAME)
 echo "Testing domain: $DOMAIN"
 echo ""
 
-# Flush DNS cache (works on macOS, Linux varies by distribution)
-echo "Attempting to flush DNS cache..."
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  sudo dscacheutil -flushcache
-  sudo killall -HUP mDNSResponder
-  echo "macOS DNS cache flushed"
-elif [[ -f /etc/debian_version ]]; then
-  sudo systemd-resolve --flush-caches || sudo service network-manager restart
-  echo "Debian/Ubuntu DNS cache flushed"
-elif [[ -f /etc/redhat-release ]]; then
-  sudo systemctl restart NetworkManager
-  echo "RHEL/CentOS/Fedora DNS cache flushed"
-else
-  echo "Could not determine OS type for DNS flush. Please flush DNS manually."
-fi
-echo ""
-
 # Check DNS resolution
 echo "Checking DNS resolution for $DOMAIN..."
 echo "A record resolution:"
-dig +short $DOMAIN
+DIG_RESULT=$(dig +short $DOMAIN)
+echo "$DIG_RESULT"
 echo ""
+
 echo "CNAME record resolution for www:"
-dig +short www.$DOMAIN
+DIG_WWW=$(dig +short www.$DOMAIN)
+echo "$DIG_WWW"
 echo ""
 
 # Check GitHub Pages IPs
@@ -41,25 +28,85 @@ echo "Verifying against GitHub Pages IP addresses:"
 GITHUB_IPS=("185.199.108.153" "185.199.109.153" "185.199.110.153" "185.199.111.153")
 DOMAIN_IPS=$(dig +short $DOMAIN)
 
+GITHUB_IP_MATCH=false
 for ip in "${GITHUB_IPS[@]}"; do
   if echo "$DOMAIN_IPS" | grep -q "$ip"; then
     echo "✅ Found GitHub Pages IP: $ip"
+    GITHUB_IP_MATCH=true
   else
     echo "❌ Missing GitHub Pages IP: $ip"
   fi
 done
+
+if [ "$GITHUB_IP_MATCH" = false ]; then
+  echo ""
+  echo "⚠️ WARNING: Your domain is not pointing to GitHub Pages IPs!"
+  echo "This is likely why you're still seeing your old website."
+fi
 echo ""
 
-# HTTP request test
-echo "Testing HTTP response from $DOMAIN..."
-curl -I https://$DOMAIN
+# Check for DNS caching
+echo "Checking for possible DNS caching issues:"
+echo "Default DNS Server result:"
+dig $DOMAIN +short
 echo ""
-echo "Testing HTTP response from www.$DOMAIN..."
-curl -I https://www.$DOMAIN
+echo "Google DNS Server result:"
+dig @8.8.8.8 $DOMAIN +short
+echo ""
+echo "Cloudflare DNS Server result:"
+dig @1.1.1.1 $DOMAIN +short
 echo ""
 
-echo "If you're still seeing your old site, you might need to:"
-echo "1. Verify DNS settings with your domain registrar"
-echo "2. Ensure your old Squarespace site has been disconnected from the domain"
-echo "3. Wait longer for DNS propagation (can take up to 48 hours)"
-echo "4. Check GitHub Pages settings to confirm custom domain configuration"
+# HTTP request test with user agent to avoid caching
+echo "Testing HTTP response from $DOMAIN (with cache-busting)..."
+CURL_UA="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+curl -I -A "$CURL_UA" "https://$DOMAIN?nocache=$(date +%s)"
+echo ""
+
+# Check TXT records for any verification records that might still be set
+echo "Checking TXT records (may show domain verification records):"
+dig TXT $DOMAIN +short
+echo ""
+
+echo "--------------------------------------------------------"
+echo "TROUBLESHOOTING RECOMMENDATIONS:"
+echo "--------------------------------------------------------"
+echo ""
+echo "If you're still seeing your old Squarespace site, here's what to do:"
+echo ""
+echo "1. DOMAIN REGISTRAR SETTINGS:"
+echo "   - Log in to your domain registrar (GoDaddy, Namecheap, etc.)"
+echo "   - Remove ALL existing A records pointing to your old host"
+echo "   - Add these 4 A records pointing to GitHub Pages IPs:"
+echo "     * @ → 185.199.108.153"
+echo "     * @ → 185.199.109.153"
+echo "     * @ → 185.199.110.153"
+echo "     * @ → 185.199.111.153"
+echo "   - Set a CNAME record: www → $DOMAIN or your-username.github.io"
+echo ""
+echo "2. SQUARESPACE DISCONNECTION:"
+echo "   - Log in to Squarespace"
+echo "   - Go to Settings → Domains"
+echo "   - Remove or disconnect your domain ($DOMAIN)"
+echo "   - This is CRITICAL as Squarespace may still be claiming the domain"
+echo ""
+echo "3. CLEAR YOUR DNS CACHE:"
+echo "   Run these commands based on your OS:"
+echo "   - macOS: sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
+echo "   - Windows: ipconfig /flushdns"
+echo "   - Linux: sudo systemd-resolve --flush-caches or sudo resolvectl flush-caches"
+echo ""
+echo "4. TRY ALTERNATIVE BROWSERS/DEVICES:"
+echo "   - Try accessing your site in an incognito/private window"
+echo "   - Try from a different browser or mobile device"
+echo "   - Try from a different network (mobile data instead of WiFi)"
+echo ""
+echo "5. WAIT FOR PROPAGATION:"
+echo "   - DNS changes can take 24-48 hours to fully propagate"
+echo "   - Check again tomorrow if changes don't take effect today"
+echo ""
+echo "6. VERIFY GITHUB PAGES SETTINGS:"
+echo "   - Ensure 'Custom domain' is properly set in your repo settings"
+echo "   - Check that CNAME file exists in your repo (it should contain: $DOMAIN)"
+echo ""
+echo "Run this script again after making any changes to verify improvements."
