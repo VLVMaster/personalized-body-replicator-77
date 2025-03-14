@@ -11,7 +11,7 @@ const RegistrationSuccess = () => {
         </svg>
       </div>
       <p className="text-center text-foreground mb-4">
-        Thanks for joining our waitlist! We're excited to have you on board.
+        Thanks for joining our waitlist!
       </p>
       <DialogClose asChild>
         <Button variant="outline">
