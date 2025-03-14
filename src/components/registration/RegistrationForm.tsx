@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { supabase, supabaseError } from '@/utils/supabase-client';
+import { supabase, supabaseError, errorMessage } from '@/utils/supabase-client';
 
 interface RegistrationFormProps {
   onSuccess: () => void;
@@ -33,7 +33,30 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
       // If Supabase is initialized, store data
       if (supabase) {
         try {
-          const { error: supabaseError } = await supabase
+          console.log('Attempting to insert into Supabase...');
+          
+          // Check if table exists
+          const { data: tableCheck, error: tableError } = await supabase
+            .from('registrations')
+            .select('*')
+            .limit(1);
+          
+          if (tableError) {
+            console.error('Table check error:', tableError);
+            // If table doesn't exist, show a more helpful error
+            if (tableError.message.includes('does not exist')) {
+              toast({
+                title: "Database table missing",
+                description: "The 'registrations' table doesn't exist in your Supabase project. Please create it first.",
+                variant: "destructive"
+              });
+              setError("The 'registrations' table doesn't exist in your Supabase project. Please create it first with columns: email, domain_preference, created_at, and source.");
+              setIsSubmitting(false);
+              return;
+            }
+          }
+          
+          const { error: insertError } = await supabase
             .from('registrations')
             .insert([{ 
               email, 
@@ -42,15 +65,29 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
               source: 'VLV Registration Form'
             }]);
             
-          if (supabaseError) {
-            console.error('Supabase error:', supabaseError);
-            // Don't throw here, just log and continue to show success
+          if (insertError) {
+            console.error('Supabase insert error:', insertError);
+            toast({
+              title: "Registration error",
+              description: insertError.message || "Failed to save your information",
+              variant: "destructive"
+            });
+            setError(insertError.message || 'Failed to register. Please try again.');
+            setIsSubmitting(false);
+            return;
           } else {
             console.log('Registration submitted to Supabase:', { email, domainPreference });
           }
-        } catch (supabaseErr) {
+        } catch (supabaseErr: any) {
           console.error('Failed to connect to Supabase:', supabaseErr);
-          // Don't throw, continue to show success
+          toast({
+            title: "Connection error",
+            description: "Couldn't connect to the database",
+            variant: "destructive"
+          });
+          setError(supabaseErr.message || 'Connection error. Please try again later.');
+          setIsSubmitting(false);
+          return;
         }
       } else {
         console.log('Demo mode: Would have submitted:', { email, domainPreference });
@@ -86,7 +123,7 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
       {supabaseError && (
         <Alert>
           <AlertDescription>
-            Note: Demo mode active. Your details won't be stored, but the form will still work.
+            Note: {errorMessage || 'Demo mode active. Your details won\'t be stored, but the form will still work.'}
           </AlertDescription>
         </Alert>
       )}
@@ -106,21 +143,6 @@ const RegistrationForm = ({ onSuccess }: RegistrationFormProps) => {
             required
             disabled={isSubmitting}
           />
-          
-          <div className="mt-4">
-            <label htmlFor="domain-preference" className="block text-sm font-medium text-muted-foreground mb-1">
-              Domain Preference (optional)
-            </label>
-            <Textarea
-              id="domain-preference"
-              value={domainPreference}
-              onChange={(e) => setDomainPreference(e.target.value)}
-              placeholder="What domain name would you like? (e.g., yourname.com)"
-              className="flex-grow focus:border-vlv-purple"
-              disabled={isSubmitting}
-              rows={2}
-            />
-          </div>
           
           <Button 
             type="submit" 
