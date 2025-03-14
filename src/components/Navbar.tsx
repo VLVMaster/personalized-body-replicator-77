@@ -61,10 +61,10 @@ const Navbar = () => {
           </button>
         ) : (
           <nav className="flex items-center space-x-1">
-            <a href="#how-it-works" className="nav-link">How It Works</a>
-            <a href="#benefits" className="nav-link">Why Choose VLV</a>
-            <a href="#market" className="nav-link">Earning Opportunity</a>
-            <a href="/contact" className="nav-link">Contact Us</a>
+            <a href="#how-it-works" className="nav-link text-sm">How It Works</a>
+            <a href="#benefits" className="nav-link text-sm">Why Choose VLV</a>
+            <a href="#market" className="nav-link text-sm">Earning Opportunity</a>
+            <a href="/contact" className="nav-link text-sm">Contact Us</a>
             <button 
               onClick={() => setIsDialogOpen(true)}
               className="button-primary ml-4"
