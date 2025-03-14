@@ -23,6 +23,7 @@ const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [selectedTier, setSelectedTier] = useState<'free' | 'paid'>('free');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,11 +47,11 @@ const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => 
       await new Promise(resolve => setTimeout(resolve, 800));
       
       // In a real app, you'd send this to your backend
-      console.log('Email submitted:', email);
+      console.log('Email submitted:', email, 'Tier:', selectedTier);
       
       toast({
         title: "Interest registered!",
-        description: "Thank you for your interest in VLV.",
+        description: `Thank you for your interest in VLV (${selectedTier} tier).`,
       });
       
       setIsSubmitted(true);
@@ -102,6 +103,38 @@ const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => 
           
           {!isSubmitted ? (
             <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-2 gap-3 mb-4">
+                <div 
+                  className={`p-4 border rounded-lg cursor-pointer transition-all ${
+                    selectedTier === 'free' 
+                      ? 'border-vlv-purple bg-vlv-light/20' 
+                      : 'border-border hover:border-vlv-purple/50'
+                  }`}
+                  onClick={() => setSelectedTier('free')}
+                >
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="font-medium">Free</h3>
+                    {selectedTier === 'free' && <Check className="h-4 w-4 text-vlv-purple" />}
+                  </div>
+                  <p className="text-sm text-muted-foreground">Basic access to create your products</p>
+                </div>
+                
+                <div 
+                  className={`p-4 border rounded-lg cursor-pointer transition-all ${
+                    selectedTier === 'paid' 
+                      ? 'border-vlv-purple bg-vlv-light/20' 
+                      : 'border-border hover:border-vlv-purple/50'
+                  }`}
+                  onClick={() => setSelectedTier('paid')}
+                >
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="font-medium">Paid</h3>
+                    {selectedTier === 'paid' && <Check className="h-4 w-4 text-vlv-purple" />}
+                  </div>
+                  <p className="text-sm text-muted-foreground">Premium features and higher commission</p>
+                </div>
+              </div>
+              
               <div className="flex flex-col gap-3">
                 <Input
                   type="email"
@@ -128,7 +161,7 @@ const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => 
                       </span>
                     </>
                   ) : (
-                    "Register Interest"
+                    `Register Interest (${selectedTier === 'free' ? 'Free Tier' : 'Paid Tier'})`
                   )}
                 </button>
               </div>
@@ -139,6 +172,10 @@ const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => 
                 <Check className="h-5 w-5" />
                 <p>Thank you for registering your interest!</p>
               </div>
+              <p className="text-sm text-muted-foreground mt-2">
+                You've selected the <span className="font-medium">{selectedTier === 'free' ? 'Free' : 'Paid'}</span> tier.
+                We'll reach out with more details soon.
+              </p>
             </div>
           )}
         </div>
