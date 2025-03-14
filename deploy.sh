@@ -20,7 +20,7 @@ git commit -m "Deploy to GitHub Pages"
 
 # Add GitHub remote (replace with your actual repository URL)
 echo "Adding GitHub remote..."
-git remote add origin https://github.com/your-username/vulvalareplica.git
+git remote add origin https://github.com/VLVMaster/personalized-body-replicator-77.git
 
 # Force push to the gh-pages branch
 echo "Pushing to gh-pages branch..."
