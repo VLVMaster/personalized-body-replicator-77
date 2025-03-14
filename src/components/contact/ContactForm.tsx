@@ -70,7 +70,7 @@ const ContactForm = () => {
         
       if (insertError) {
         console.error('Error saving contact form:', insertError);
-        throw new Error(insertError.message);
+        throw new Error(insertError.message || 'Failed to submit form. Please try again.');
       }
       
       console.log('Contact form submitted successfully:', data);
