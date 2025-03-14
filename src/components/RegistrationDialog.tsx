@@ -11,6 +11,12 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { createClient } from '@supabase/supabase-js';
+
+// Initialize Supabase client
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 interface RegistrationDialogProps {
   open: boolean;
@@ -42,23 +48,20 @@ const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => 
     try {
       setIsSubmitting(true);
       
-      // Store the email using Formspree
-      const response = await fetch('https://formspree.io/f/YOUR_FORMSPREE_ID', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ 
-          email,
-          submittedFrom: 'VLV Registration Form'
-        })
-      });
+      // Store the email in Supabase
+      const { error: supabaseError } = await supabase
+        .from('registrations')
+        .insert([{ 
+          email, 
+          created_at: new Date().toISOString(),
+          source: 'VLV Registration Form'
+        }]);
       
-      if (!response.ok) {
-        throw new Error('Failed to submit your registration.');
+      if (supabaseError) {
+        throw new Error(supabaseError.message);
       }
       
-      console.log('Email submitted:', email);
+      console.log('Email submitted to Supabase:', email);
       
       toast({
         title: "Interest registered!",
