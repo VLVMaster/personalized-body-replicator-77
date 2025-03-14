@@ -25,7 +25,7 @@ const HeroSection = () => {
           
           <RevealOnScroll animation="slide-up" delay="delay-300">
             <p className="text-lg md:text-xl text-foreground opacity-90 mb-4 mx-auto">
-              At VLV, we empower OnlyFans creators to transform their unique image into personalised products, with zero upfront costs.
+              At VLV, we help OnlyFans creators transform their most intimate features into personalised replica sex toys—with zero upfront costs.
             </p>
             <p className="text-lg md:text-xl text-foreground opacity-90 mb-8 mx-auto font-medium">
               <strong>Simply scan, sell, and profit.</strong>
