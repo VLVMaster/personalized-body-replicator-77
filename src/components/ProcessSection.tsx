@@ -11,7 +11,7 @@ const ProcessSection = () => {
     {
       icon: <Scan className="h-12 w-12 text-vlv-purple" />,
       title: "Scan Your Body",
-      description: "Download the VLV app and perform a quick, precise scan to generate a digital 3D mould of your intimate features."
+      description: "Download the VLR app and perform a quick, precise scan to generate a digital 3D mould of your intimate features."
     },
     {
       icon: <Printer className="h-12 w-12 text-vlv-purple" />,

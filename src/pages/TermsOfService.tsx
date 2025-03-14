@@ -15,7 +15,7 @@ const TermsOfService = () => {
             <p className="mb-4">Last Updated: {new Date().toLocaleDateString()}</p>
             
             <h2 className="text-xl font-semibold mt-6 mb-3">1. Introduction</h2>
-            <p>Welcome to Vulva La Replica ("VLV", "we", "us", or "our"). By accessing or using our website, products, or services, you agree to be bound by these Terms of Service ("Terms").</p>
+            <p>Welcome to Vulva La Replica ("VLR", "we", "us", or "our"). By accessing or using our website, products, or services, you agree to be bound by these Terms of Service ("Terms").</p>
             
             <h2 className="text-xl font-semibold mt-6 mb-3">2. Eligibility</h2>
             <p>You must be at least 18 years old and capable of forming a binding contract to use our services. By using our services, you represent that you meet these requirements.</p>
@@ -44,13 +44,13 @@ const TermsOfService = () => {
             <p>Our services are provided "as is" and "as available" without warranties of any kind, either express or implied.</p>
             
             <h2 className="text-xl font-semibold mt-6 mb-3">7. Limitation of Liability</h2>
-            <p>In no event shall VLV, its affiliates, or their respective officers, directors, employees, or agents be liable for any indirect, incidental, special, punitive, or consequential damages arising out of or related to your use of our services.</p>
+            <p>In no event shall VLR, its affiliates, or their respective officers, directors, employees, or agents be liable for any indirect, incidental, special, punitive, or consequential damages arising out of or related to your use of our services.</p>
             
             <h2 className="text-xl font-semibold mt-6 mb-3">8. Changes to Terms</h2>
             <p>We reserve the right to modify these Terms at any time. We will provide notice of significant changes by posting the updated Terms on our website. Your continued use of our services after such changes constitutes your acceptance of the new Terms.</p>
             
             <h2 className="text-xl font-semibold mt-6 mb-3">9. Governing Law</h2>
-            <p>These Terms shall be governed by and construed in accordance with the laws of the jurisdiction in which VLV is registered, without regard to its conflict of law provisions.</p>
+            <p>These Terms shall be governed by and construed in accordance with the laws of the jurisdiction in which VLR is registered, without regard to its conflict of law provisions.</p>
             
             <h2 className="text-xl font-semibold mt-6 mb-3">10. Contact Information</h2>
             <p>If you have any questions about these Terms, please contact us at support@vulvalareplica.com.</p>

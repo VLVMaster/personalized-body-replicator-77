@@ -32,7 +32,7 @@ const BenefitsSection = () => {
         <RevealOnScroll>
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="section-heading">
-              Why Choose <span className="gradient-text">VLV</span>
+              Why Choose <span className="gradient-text">VLR</span>
             </h2>
             <p className="section-subheading mx-auto">
               We've designed our service to make monetisation easy, secure, and profitable for creators

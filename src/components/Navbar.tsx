@@ -63,7 +63,7 @@ const Navbar = () => {
         ) : (
           <nav className="flex items-center space-x-1">
             <a href="#how-it-works" className="nav-link text-sm">How It Works</a>
-            <a href="#benefits" className="nav-link text-sm">Why Choose VLV</a>
+            <a href="#benefits" className="nav-link text-sm">Why Choose VLR</a>
             <a href="#market" className="nav-link text-sm">Earning Opportunity</a>
             <Link to="/contact" className="nav-link text-sm">Contact Us</Link>
             <button 
@@ -102,7 +102,7 @@ const Navbar = () => {
                 className="text-xl font-medium py-2 w-full text-center"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Why Choose VLV
+                Why Choose VLR
               </a>
               <a 
                 href="#market" 

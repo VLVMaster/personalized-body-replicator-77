@@ -28,7 +28,7 @@ const MarketSection = () => {
                     <div>
                       <h3 className="text-xl font-semibold mb-1">Monetise Your Audience</h3>
                       <p className="text-muted-foreground">
-                        You can earn an additional £20,000 per month by selling 1,000 units with the VLV platform.
+                        You can earn an additional £20,000 per month by selling 1,000 units with the VLR platform.
                       </p>
                     </div>
                   </div>

@@ -28,7 +28,7 @@ const CallToAction = () => {
     // For now, just show a success message
     toast({
       title: "Interest registered!",
-      description: "Thank you for your interest in VLV.",
+      description: "Thank you for your interest in VLR.",
     });
     
     setIsSubmitted(true);
@@ -44,7 +44,7 @@ const CallToAction = () => {
           <RevealOnScroll>
             <div className="text-center mb-12">
               <h2 className="section-heading mb-4">
-                Register your interest with <span className="gradient-text">VLV</span>
+                Register your interest with <span className="gradient-text">VLR</span>
               </h2>
               <p className="section-subheading mx-auto text-lg opacity-90">
                 Join our community of successful creators
