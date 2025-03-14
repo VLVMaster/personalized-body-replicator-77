@@ -212,13 +212,13 @@ const RegistrationForm = ({ onSuccess, onClose }: RegistrationFormProps) => {
         
         <div>
           <label htmlFor="message" className="block text-sm font-medium text-muted-foreground mb-1">
-            Tell us more... (optional)
+            Message (optional)
           </label>
           <Textarea
             id="message"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Tell us more about your interest..."
+            placeholder="Tell us more..."
             className="flex-grow focus:border-vlv-purple"
             disabled={isSubmitting}
           />
