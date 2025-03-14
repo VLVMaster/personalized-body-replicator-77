@@ -21,7 +21,7 @@ interface InterestType {
 const interestTypes: InterestType[] = [
   { id: 'model', label: 'Model' },
   { id: 'agency', label: 'Agency' },
-  { id: 'partnership', label: 'Partnership Enquiry' },
+  { id: 'product_partner', label: 'Product Partner' },
   { id: 'other', label: 'Other' }
 ];
 
@@ -188,7 +188,7 @@ const RegistrationForm = ({ onSuccess, onClose }: RegistrationFormProps) => {
         
         <div>
           <label className="block text-sm font-medium text-muted-foreground mb-1">
-            I am interested in: (optional)
+            Role: (optional)
           </label>
           <div className="space-y-2">
             {interestTypes.map((interest) => (
@@ -212,7 +212,7 @@ const RegistrationForm = ({ onSuccess, onClose }: RegistrationFormProps) => {
         
         <div>
           <label htmlFor="message" className="block text-sm font-medium text-muted-foreground mb-1">
-            Message (optional)
+            Tell us more... (optional)
           </label>
           <Textarea
             id="message"
