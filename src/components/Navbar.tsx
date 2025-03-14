@@ -21,6 +21,25 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu when resizing from mobile to desktop
+  useEffect(() => {
+    if (!isMobile && isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  }, [isMobile, isMenuOpen]);
+
+  // Prevent background scrolling when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
+
   return (
     <header 
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
@@ -28,14 +47,14 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <a href="/" className="flex items-center gap-2">
+        <a href="/" className="flex items-center gap-2 relative z-50">
           <span className="text-2xl font-display font-bold text-vlv-purple">Vulva La Replica</span>
         </a>
         
         {isMobile ? (
           <button 
             onClick={toggleMenu}
-            className="text-foreground p-2 rounded-md"
+            className="text-foreground p-2 rounded-md relative z-50"
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -55,45 +74,52 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu overlay */}
       {isMobile && (
         <div 
-          className={`fixed inset-0 bg-background pt-20 z-40 transition-transform duration-300 ease-in-out ${
-            isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          className={`fixed inset-0 bg-background/95 backdrop-blur-sm z-40 transition-all duration-300 ${
+            isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
           }`}
+          aria-hidden={!isMenuOpen}
         >
-          <nav className="flex flex-col items-center space-y-6 p-6">
-            <a 
-              href="#how-it-works" 
-              className="text-xl py-2 w-full text-center"
-              onClick={toggleMenu}
-            >
-              How It Works
-            </a>
-            <a 
-              href="#benefits" 
-              className="text-xl py-2 w-full text-center"
-              onClick={toggleMenu}
-            >
-              Why Choose VLV
-            </a>
-            <a 
-              href="#market" 
-              className="text-xl py-2 w-full text-center"
-              onClick={toggleMenu}
-            >
-              Earning Opportunity
-            </a>
-            <button
-              onClick={() => {
-                setIsMenuOpen(false);
-                setIsDialogOpen(true);
-              }}
-              className="button-primary w-full text-center mt-4"
-            >
-              Register Interest
-            </button>
-          </nav>
+          <div 
+            className={`flex flex-col items-center justify-center h-full w-full transition-transform duration-300 px-6 ${
+              isMenuOpen ? 'translate-y-0' : 'translate-y-10'
+            }`}
+          >
+            <nav className="flex flex-col items-center space-y-8 w-full">
+              <a 
+                href="#how-it-works" 
+                className="text-xl font-medium py-2 w-full text-center"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                How It Works
+              </a>
+              <a 
+                href="#benefits" 
+                className="text-xl font-medium py-2 w-full text-center"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Why Choose VLV
+              </a>
+              <a 
+                href="#market" 
+                className="text-xl font-medium py-2 w-full text-center"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Earning Opportunity
+              </a>
+              <button
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  setIsDialogOpen(true);
+                }}
+                className="button-primary w-full text-center mt-4 py-4"
+              >
+                Register Interest
+              </button>
+            </nav>
+          </div>
         </div>
       )}
 

@@ -19,8 +19,11 @@ const Index = () => {
           e.preventDefault();
           const targetElement = document.querySelector(href);
           if (targetElement) {
+            // Get the navbar height dynamically
+            const navbarHeight = document.querySelector('header')?.getBoundingClientRect().height || 80;
+            
             window.scrollTo({
-              top: targetElement.getBoundingClientRect().top + window.scrollY - 80,
+              top: targetElement.getBoundingClientRect().top + window.scrollY - navbarHeight,
               behavior: 'smooth'
             });
           }
@@ -35,7 +38,7 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-grow">
+      <main className="flex-grow pt-20">
         <HeroSection />
         <ProcessSection />
         <BenefitsSection />
