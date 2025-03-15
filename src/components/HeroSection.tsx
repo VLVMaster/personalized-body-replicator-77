@@ -17,7 +17,7 @@ const HeroSection = () => {
       <div className="absolute top-1/3 right-16 w-64 h-64 bg-vlv-purple/5 rounded-full blur-3xl animate-float z-0" />
       <div className="absolute bottom-1/3 left-16 w-80 h-80 bg-vlv-burgundy/5 rounded-full blur-3xl animate-float animation-delay-2000 z-0" />
       
-      <div className="section-container grid md:grid-cols-1 gap-20 items-center z-10 max-w-3xl mx-auto text-center">
+      <div className="section-container grid md:grid-cols-1 gap-12 items-center z-10 max-w-3xl mx-auto text-center">
         <div>
           <RevealOnScroll animation="slide-up">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-tight text-balance text-foreground whitespace-nowrap">

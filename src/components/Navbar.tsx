@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -83,7 +82,7 @@ const Navbar = () => {
   return (
     <header 
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'py-4 bg-background/80 backdrop-blur-md shadow-sm' : 'py-12 bg-transparent'
+        isScrolled ? 'py-3 bg-background/80 backdrop-blur-md shadow-sm' : 'py-5 bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
@@ -133,10 +132,10 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Mobile menu overlay - Updated to have solid background */}
+      {/* Mobile menu overlay */}
       {isMobile && (
         <div 
-          className={`fixed inset-0 bg-background backdrop-blur-none z-40 transition-all duration-300 ${
+          className={`fixed inset-0 bg-background/95 backdrop-blur-sm z-40 transition-all duration-300 ${
             isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
           }`}
           aria-hidden={!isMenuOpen}
