@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -132,10 +133,10 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Mobile menu overlay */}
+      {/* Mobile menu overlay - Updated to have solid background */}
       {isMobile && (
         <div 
-          className={`fixed inset-0 bg-background/95 backdrop-blur-sm z-40 transition-all duration-300 ${
+          className={`fixed inset-0 bg-background backdrop-blur-none z-40 transition-all duration-300 ${
             isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
           }`}
           aria-hidden={!isMenuOpen}
