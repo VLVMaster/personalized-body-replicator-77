@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -142,11 +141,11 @@ const Navbar = () => {
           aria-hidden={!isMenuOpen}
         >
           <div 
-            className={`flex flex-col items-center justify-center h-full w-full transition-transform duration-300 px-6 pt-16 ${
+            className={`flex flex-col items-center justify-start h-full w-full transition-transform duration-300 px-6 pt-20 ${
               isMenuOpen ? 'translate-y-0' : 'translate-y-10'
             }`}
           >
-            <nav className="flex flex-col items-center space-y-5 w-full">
+            <nav className="flex flex-col items-center space-y-4 w-full">
               <a 
                 href="#how-it-works" 
                 className="text-lg font-medium py-1.5 w-full text-center"
