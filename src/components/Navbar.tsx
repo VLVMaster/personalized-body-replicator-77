@@ -142,35 +142,35 @@ const Navbar = () => {
           aria-hidden={!isMenuOpen}
         >
           <div 
-            className={`flex flex-col items-center justify-center h-full w-full transition-transform duration-300 px-6 ${
+            className={`flex flex-col items-center justify-center h-full w-full transition-transform duration-300 px-6 pt-16 ${
               isMenuOpen ? 'translate-y-0' : 'translate-y-10'
             }`}
           >
-            <nav className="flex flex-col items-center space-y-8 w-full">
+            <nav className="flex flex-col items-center space-y-5 w-full">
               <a 
                 href="#how-it-works" 
-                className="text-xl font-medium py-2 w-full text-center"
+                className="text-lg font-medium py-1.5 w-full text-center"
                 onClick={(e) => handleNavigation(e, '#how-it-works')}
               >
                 How It Works
               </a>
               <a 
                 href="#benefits" 
-                className="text-xl font-medium py-2 w-full text-center"
+                className="text-lg font-medium py-1.5 w-full text-center"
                 onClick={(e) => handleNavigation(e, '#benefits')}
               >
                 Why Choose VLR
               </a>
               <a 
                 href="#market" 
-                className="text-xl font-medium py-2 w-full text-center"
+                className="text-lg font-medium py-1.5 w-full text-center"
                 onClick={(e) => handleNavigation(e, '#market')}
               >
                 Earning Opportunity
               </a>
               <Link 
                 to="/contact" 
-                className="text-xl font-medium py-2 w-full text-center"
+                className="text-lg font-medium py-1.5 w-full text-center"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contact Us
