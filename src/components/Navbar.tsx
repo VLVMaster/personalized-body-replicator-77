@@ -141,35 +141,35 @@ const Navbar = () => {
           aria-hidden={!isMenuOpen}
         >
           <div 
-            className={`flex flex-col items-center justify-start h-full w-full transition-transform duration-300 px-6 pt-20 ${
+            className={`flex flex-col items-center justify-start h-full w-full transition-transform duration-300 px-6 pt-12 ${
               isMenuOpen ? 'translate-y-0' : 'translate-y-10'
             }`}
           >
-            <nav className="flex flex-col items-center space-y-4 w-full">
+            <nav className="flex flex-col items-center space-y-3 w-full">
               <a 
                 href="#how-it-works" 
-                className="text-lg font-medium py-1.5 w-full text-center"
+                className="text-base font-medium py-1 w-full text-center"
                 onClick={(e) => handleNavigation(e, '#how-it-works')}
               >
                 How It Works
               </a>
               <a 
                 href="#benefits" 
-                className="text-lg font-medium py-1.5 w-full text-center"
+                className="text-base font-medium py-1 w-full text-center"
                 onClick={(e) => handleNavigation(e, '#benefits')}
               >
                 Why Choose VLR
               </a>
               <a 
                 href="#market" 
-                className="text-lg font-medium py-1.5 w-full text-center"
+                className="text-base font-medium py-1 w-full text-center"
                 onClick={(e) => handleNavigation(e, '#market')}
               >
                 Earning Opportunity
               </a>
               <Link 
                 to="/contact" 
-                className="text-lg font-medium py-1.5 w-full text-center"
+                className="text-base font-medium py-1 w-full text-center"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contact Us
@@ -179,7 +179,7 @@ const Navbar = () => {
                   setIsMenuOpen(false);
                   setIsDialogOpen(true);
                 }}
-                className="button-primary w-full text-center mt-4 py-4"
+                className="button-primary w-full text-center mt-4 py-3"
               >
                 Register Interest
               </button>
