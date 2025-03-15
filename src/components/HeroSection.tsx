@@ -9,7 +9,7 @@ const HeroSection = () => {
   const isMobile = useIsMobile();
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-8 overflow-visible">
+    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-visible">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-vlv-light/50 to-background z-0" />
       
