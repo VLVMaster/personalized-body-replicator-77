@@ -7,17 +7,17 @@ const BenefitsSection = () => {
     {
       icon: <PoundSterling className="h-8 w-8 text-vlv-purple" />,
       title: "Zero Costs",
-      description: "We only print on demand so you never pay a penny. When your fans pay, you profit."
+      description: "We only print on demand so you never pay a penny—when your fans pay, you profit."
     },
     {
       icon: <Lock className="h-8 w-8 text-vlv-purple" />,
       title: "Privacy & Security",
-      description: "Your scan and personal data remain completely confidential, stored securely with the highest privacy standards. Your body, your control, always."
+      description: "Your scan and personal data remain completely confidential."
     },
     {
       icon: <Users className="h-8 w-8 text-vlv-purple" />,
       title: "100% Female Owned",
-      description: "Built by women, for creators. VLR empowers you to expand your brand, your way."
+      description: "Built by women, for creators—empowering you to own your brand, your way."
     },
     {
       icon: <ShieldCheck className="h-8 w-8 text-vlv-purple" />,

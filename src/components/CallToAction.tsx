@@ -47,7 +47,7 @@ const CallToAction = () => {
                 Register your interest with <span className="gradient-text">VLR</span>
               </h2>
               <p className="section-subheading mx-auto text-lg opacity-90">
-                Join our community of interested creators
+                Join our community of successful creators
               </p>
             </div>
           </RevealOnScroll>
@@ -60,10 +60,10 @@ const CallToAction = () => {
             <RevealOnScroll animation="slide-up">
               <div className="relative">
                 <h3 className="text-2xl md:text-3xl font-semibold mb-6 text-center">
-                  Register your interest with VLR
+                  Register Your Interest
                 </h3>
                 <p className="text-lg mb-8 max-w-2xl mx-auto text-center text-muted-foreground">
-                  Join our community of interested creators and be the first to know when we launch to be invited.
+                  Be the first to know when we launch to be invited.
                 </p>
                 
                 {!isSubmitted ? (
