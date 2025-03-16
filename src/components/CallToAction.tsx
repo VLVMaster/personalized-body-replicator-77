@@ -41,17 +41,6 @@ const CallToAction = () => {
       
       <div className="section-container relative z-10">
         <div className="max-w-4xl mx-auto">
-          <RevealOnScroll>
-            <div className="text-center mb-12">
-              <h2 className="section-heading mb-4">
-                Register your interest with <span className="gradient-text">VLR</span>
-              </h2>
-              <p className="section-subheading mx-auto text-lg opacity-90">
-                Join our community of interested creators
-              </p>
-            </div>
-          </RevealOnScroll>
-          
           <div className="bg-card rounded-2xl p-8 md:p-12 shadow-xl border border-border relative overflow-hidden">
             {/* Decorative gradients */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-vlv-purple/10 rounded-full blur-3xl" />
@@ -59,13 +48,6 @@ const CallToAction = () => {
             
             <RevealOnScroll animation="slide-up">
               <div className="relative">
-                <h3 className="text-2xl md:text-3xl font-semibold mb-6 text-center">
-                  Register your interest with VLR
-                </h3>
-                <p className="text-lg mb-8 max-w-2xl mx-auto text-center text-muted-foreground">
-                  Join our community of interested creators and be the first to know when we launch to be invited.
-                </p>
-                
                 {!isSubmitted ? (
                   <form onSubmit={handleSubmit} className="max-w-md mx-auto mb-10">
                     <div className="flex flex-col sm:flex-row gap-3">
