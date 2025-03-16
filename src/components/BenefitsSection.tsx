@@ -12,7 +12,7 @@ const BenefitsSection = () => {
     {
       icon: <Lock className="h-8 w-8 text-vlv-purple" />,
       title: "Privacy & Security",
-      description: "Your scan and personal data remain completely secure. Your body, your control, always."
+      description: "Your scan and personal data remain completely confidential, stored securely with the highest privacy standards. Your body, your control, always."
     },
     {
       icon: <Users className="h-8 w-8 text-vlv-purple" />,
