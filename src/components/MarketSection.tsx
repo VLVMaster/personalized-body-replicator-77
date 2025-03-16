@@ -15,7 +15,7 @@ const MarketSection = () => {
                 Earning <span className="gradient-text">Opportunity</span>
               </h2>
               <p className="section-subheading">
-                With millions of creators and a vast, engaged audience on platforms like OnlyFans, the demand for personalised products has never been higher.
+              With millions of creators and a highly engaged audience on platforms like OnlyFans, the demand for personalised products has never been greater.
               </p>
               
               <div className="mt-8 space-y-6">
@@ -27,7 +27,7 @@ const MarketSection = () => {
                     <div>
                       <h3 className="text-xl font-semibold mb-1">Monetise Your Audience</h3>
                       <p className="text-muted-foreground">
-                       With VLR, you can turn your most dedicated followers into loyal customers - offering something truly personal, exclusive, and in demand.
+                      VLR lets you offer your fans something truly personal and exclusive—transforming loyal followers into higher paying customers with a product that strengthens their connection to you.
                       </p>
                     </div>
                   </div>
@@ -41,7 +41,7 @@ const MarketSection = () => {
                     <div>
                       <h3 className="text-xl font-semibold mb-1">Loyal Fan Base</h3>
                       <p className="text-muted-foreground">
-                        Content creators with dedicated followers can easily convert their audience into customers for these unique, personalised products.
+                      Your audience is already invested in you—now you can give them the ultimate way to show their support with a unique, personalised product made just for them.
                       </p>
                     </div>
                   </div>
