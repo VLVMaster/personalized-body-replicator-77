@@ -69,7 +69,7 @@ const ProcessSection = () => {
               onClick={() => setIsDialogOpen(true)} 
               className="button-primary"
             >
-              Register Your Interest
+              Register Interest
             </button>
           </div>
         </RevealOnScroll>

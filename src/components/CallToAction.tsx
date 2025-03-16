@@ -60,7 +60,7 @@ const CallToAction = () => {
             <RevealOnScroll animation="slide-up">
               <div className="relative">
                 <h3 className="text-2xl md:text-3xl font-semibold mb-6 text-center">
-                  Register Your Interest
+                  Register Interest
                 </h3>
                 <p className="text-lg mb-8 max-w-2xl mx-auto text-center text-muted-foreground">
                   Be the first to know when we launch to be invited.

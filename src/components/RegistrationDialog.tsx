@@ -25,7 +25,7 @@ const RegistrationDialog = ({ open, onOpenChange }: RegistrationDialogProps) => 
       <DialogContent className="sm:max-w-lg w-[90vw]">
         <DialogHeader>
           <DialogTitle>
-            Register Your Interest
+            Register Interest
           </DialogTitle>
           <DialogDescription>
             Be among the first to experience VLR. Join our waitlist for early information on product launch.

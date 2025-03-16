@@ -37,7 +37,7 @@ const HeroSection = () => {
                 onClick={() => setIsDialogOpen(true)} 
                 className="button-primary flex items-center justify-center gap-2 group"
               >
-                Register Your Interest
+                Register Interest
               </button>
             </div>
           </RevealOnScroll>
