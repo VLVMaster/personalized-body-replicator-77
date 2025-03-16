@@ -15,7 +15,7 @@ const MarketSection = () => {
                 Earning <span className="gradient-text">Opportunity</span>
               </h2>
               <p className="section-subheading">
-              With millions of creators and a highly engaged audience on platforms like OnlyFans, the demand for personalised products has never been greater.
+              With millions of creators and highly engaged audiences, the demand for personalised products has never been greater.
               </p>
               
               <div className="mt-8 space-y-6">
