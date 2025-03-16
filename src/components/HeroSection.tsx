@@ -9,7 +9,7 @@ const HeroSection = () => {
   const isMobile = useIsMobile();
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-10 overflow-visible">
+    <section className="relative min-h-screen flex items-center justify-center pt-8 overflow-visible">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-vlv-light/50 to-background z-0" />
       
@@ -27,7 +27,7 @@ const HeroSection = () => {
           
           <RevealOnScroll animation="slide-up" delay="delay-300">
             <p className="text-lg md:text-xl text-foreground opacity-90 mb-8 mx-auto">
-              At VLR, we help OnlyFans creators transform their most intimate features into personalised replica sex toys. <strong>Simply scan, sell, and profit.</strong>
+              At VLR, we help creators transform their most intimate features into personalised replica sex toys. <strong>Simply scan, sell, and profit.</strong>
             </p>
           </RevealOnScroll>
           
