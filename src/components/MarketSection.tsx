@@ -27,7 +27,7 @@ const MarketSection = () => {
                     <div>
                       <h3 className="text-xl font-semibold mb-1">Monetise Your Audience</h3>
                       <p className="text-muted-foreground">
-                        You can earn an additional £20,000 per month by selling 1,000 units with the VLR platform.
+                       With VLR, you can turn your most dedicated followers into loyal customers - offering something truly personal, exclusive, and in demand.
                       </p>
                     </div>
                   </div>
@@ -63,7 +63,7 @@ const MarketSection = () => {
                   <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-sm font-medium">100 Sales</span>
-                      <span className="text-lg font-bold">£5,000</span>
+                      <span className="text-lg font-bold">£10,000</span>
                     </div>
                     <div className="w-full bg-white/20 rounded-full h-2">
                       <div className="bg-vlv-burgundy h-2 rounded-full" style={{ width: '10%' }}></div>
@@ -73,7 +73,7 @@ const MarketSection = () => {
                   <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-sm font-medium">500 Sales</span>
-                      <span className="text-lg font-bold">£25,000</span>
+                      <span className="text-lg font-bold">£50,000</span>
                     </div>
                     <div className="w-full bg-white/20 rounded-full h-2">
                       <div className="bg-vlv-burgundy h-2 rounded-full" style={{ width: '50%' }}></div>
@@ -83,7 +83,7 @@ const MarketSection = () => {
                   <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-sm font-medium">1,000 Sales</span>
-                      <span className="text-lg font-bold">£50,000</span>
+                      <span className="text-lg font-bold">£100,000</span>
                     </div>
                     <div className="w-full bg-white/20 rounded-full h-2">
                       <div className="bg-vlv-burgundy h-2 rounded-full" style={{ width: '100%' }}></div>
@@ -91,7 +91,7 @@ const MarketSection = () => {
                   </div>
                   
                   <p className="text-center text-sm mt-4 opacity-70">
-                    Based on £50 creator profit per sale
+                    Based on £100 creator profit per sale
                   </p>
                 </div>
               </div>
