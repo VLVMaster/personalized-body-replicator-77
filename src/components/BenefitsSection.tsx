@@ -1,13 +1,13 @@
 
-import { PoundSterling, Lock, Package, ShieldCheck } from 'lucide-react';
+import { PoundSterling, Lock, Users, ShieldCheck } from 'lucide-react';
 import RevealOnScroll from './ui/RevealOnScroll';
 
 const BenefitsSection = () => {
   const benefits = [
     {
       icon: <PoundSterling className="h-8 w-8 text-vlv-purple" />,
-      title: "Zero Upfront Costs",
-      description: "We cover all scanning and production expenses, letting you focus on your brand."
+      title: "Zero Costs",
+      description: "We only print on demand so you never pay a penny—when your fans pay, you profit."
     },
     {
       icon: <Lock className="h-8 w-8 text-vlv-purple" />,
@@ -15,14 +15,14 @@ const BenefitsSection = () => {
       description: "Your scan and personal data remain completely confidential."
     },
     {
-      icon: <Package className="h-8 w-8 text-vlv-purple" />,
-      title: "Your Own Shop",
-      description: "We help you set up your own shop to sell products so it's completely unique to you."
+      icon: <Users className="h-8 w-8 text-vlv-purple" />,
+      title: "100% Female Owned",
+      description: "Built by women, for creators—empowering you to own your brand, your way."
     },
     {
       icon: <ShieldCheck className="h-8 w-8 text-vlv-purple" />,
       title: "Fair Partnership",
-      description: "Enjoy a straightforward 50/50 revenue share. Every sale directly boosts your earnings."
+      description: "After production costs, profit is 50% to you, 50% to us. No hidden fees, just shared success."
     }
   ];
 

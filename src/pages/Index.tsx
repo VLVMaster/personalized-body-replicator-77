@@ -11,7 +11,7 @@ import Footer from '@/components/Footer';
 const Index = () => {
   // Set document title
   useEffect(() => {
-    document.title = 'Vulva La Replica';
+    document.title = 'VLR';
   }, []);
 
   // Smooth scrolling for anchor links

@@ -94,7 +94,7 @@ const CallToAction = () => {
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div className="bg-card/50 p-6 rounded-xl border border-border/50 hover:border-border/80 transition-colors">
                     <PoundSterling className="h-8 w-8 text-vlv-purple mb-3" />
-                    <h4 className="font-semibold text-lg mb-2">Zero Upfront Costs</h4>
+                    <h4 className="font-semibold text-lg mb-2">Zero Costs</h4>
                     <p className="text-muted-foreground">Start your business with no financial risk</p>
                   </div>
                   <div className="bg-card/50 p-6 rounded-xl border border-border/50 hover:border-border/80 transition-colors">

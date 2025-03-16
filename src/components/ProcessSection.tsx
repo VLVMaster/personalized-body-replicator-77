@@ -21,7 +21,7 @@ const ProcessSection = () => {
     {
       icon: <PoundSterling className="h-12 w-12 text-vlv-purple" />,
       title: "Sell Directly to Fans",
-      description: "Enjoy a simple 50/50 revenue share—while we handle print-on-demand production and shipping."
+      description: "Enjoy a simple 50/50 profit share—while we handle print-on-demand production and shipping."
     }
   ];
 
