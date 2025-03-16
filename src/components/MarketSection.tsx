@@ -1,4 +1,3 @@
-
 import { BarChart3, TrendingUp, Users } from 'lucide-react';
 import RevealOnScroll from './ui/RevealOnScroll';
 
@@ -43,20 +42,6 @@ const MarketSection = () => {
                       <h3 className="text-xl font-semibold mb-1">Loyal Fan Base</h3>
                       <p className="text-muted-foreground">
                         Content creators with dedicated followers can easily convert their audience into customers for these unique, personalised products.
-                      </p>
-                    </div>
-                  </div>
-                </RevealOnScroll>
-                
-                <RevealOnScroll animation="slide-right" delay="delay-400">
-                  <div className="flex gap-4 items-start">
-                    <div className="p-2 bg-vlv-light rounded-lg">
-                      <BarChart3 className="h-6 w-6 text-vlv-burgundy" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-1">Growing Industry</h3>
-                      <p className="text-muted-foreground">
-                        The creator economy is expanding rapidly, with increasing opportunities for personalised merchandise that connects fans with creators.
                       </p>
                     </div>
                   </div>
