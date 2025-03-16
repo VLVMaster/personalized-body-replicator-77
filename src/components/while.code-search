@@ -1,0 +1,9 @@
+# Query: while
+# ContextLines: 1
+
+1 result - 1 file
+
+src/components/ProcessSection.tsx:
+  23        title: "Sell Directly to Fans",
+  24:       description: "Enjoy a simple 50/50 profit share — whilst we handle print-on-demand production and shipping."
+  25      }

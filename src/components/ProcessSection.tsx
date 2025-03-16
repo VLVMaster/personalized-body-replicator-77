@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Scan, Printer, PoundSterling } from 'lucide-react';
 import RevealOnScroll from './ui/RevealOnScroll';
@@ -11,17 +10,17 @@ const ProcessSection = () => {
     {
       icon: <Scan className="h-12 w-12 text-vlv-purple" />,
       title: "Scan Your Body",
-      description: "Download the VLR app and perform a quick, precise scan to generate a digital 3D mould of your intimate features."
+      description: "Download the VLR app and perform a quick, precise scan to create a 3D mould of your intimate features."
     },
     {
       icon: <Printer className="h-12 w-12 text-vlv-purple" />,
       title: "Create Your Replica",
-      description: "Our advanced technology turns your scan into a high-quality silicone replica that perfectly mirrors your skin tone."
+      description: "Our advanced technology transforms your scan into a high-quality silicone replica with lifelike detail."
     },
     {
       icon: <PoundSterling className="h-12 w-12 text-vlv-purple" />,
       title: "Sell Directly to Fans",
-      description: "Enjoy a simple 50/50 profit share—while we handle print-on-demand production and shipping."
+      description: "We handle production and shipping, while you earn with a simple 50/50 profit share."
     }
   ];
 
@@ -37,7 +36,7 @@ const ProcessSection = () => {
               How It <span className="gradient-text">Works</span>
             </h2>
             <p className="section-subheading mx-auto">
-              Our streamlined process makes it easy to turn your unique body into a profitable product
+              Our streamlined process makes it easy to turn your unique body into a profitable product.
             </p>
           </div>
         </RevealOnScroll>
