@@ -91,7 +91,7 @@ const MarketSection = () => {
                   </div>
                   
                   <p className="text-center text-sm mt-4 opacity-70">
-                    Based on £100 creator profit per sale
+                    Example based on £100 profit per sale for creators. 
                   </p>
                 </div>
               </div>
