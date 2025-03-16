@@ -1,8 +1,14 @@
 
+import { useState } from 'react';
 import { BarChart3, TrendingUp, Users } from 'lucide-react';
 import RevealOnScroll from './ui/RevealOnScroll';
+import { Slider } from './ui/slider';
 
 const MarketSection = () => {
+  const [salesCount, setSalesCount] = useState<number>(500);
+  const profitPerSale = 50; // £50 profit per sale
+  const estimatedProfit = salesCount * profitPerSale;
+
   return (
     <section id="market" className="relative py-20">
       {/* Background gradient */}
@@ -28,7 +34,7 @@ const MarketSection = () => {
                     <div>
                       <h3 className="text-xl font-semibold mb-1">Monetise Your Audience</h3>
                       <p className="text-muted-foreground">
-                        You can earn an additional £20,000 per month by selling 1,000 units with the VLR platform.
+                        You can earn an additional £{profitPerSale * 1000} per month by selling 1,000 units with the VLR platform.
                       </p>
                     </div>
                   </div>
@@ -47,18 +53,26 @@ const MarketSection = () => {
                     </div>
                   </div>
                 </RevealOnScroll>
-                
+
                 <RevealOnScroll animation="slide-right" delay="delay-400">
-                  <div className="flex gap-4 items-start">
-                    <div className="p-2 bg-vlv-light rounded-lg">
-                      <BarChart3 className="h-6 w-6 text-vlv-burgundy" />
+                  <div className="mt-10 space-y-4">
+                    <h3 className="text-xl font-semibold">Calculate Your Potential Profit</h3>
+                    <div className="flex items-center gap-4">
+                      <span className="min-w-20 text-right">Sales: {salesCount}</span>
+                      <div className="flex-grow">
+                        <Slider 
+                          defaultValue={[500]} 
+                          max={1000} 
+                          step={10} 
+                          onValueChange={(values) => setSalesCount(values[0])}
+                          className="py-4"
+                        />
+                      </div>
+                      <span className="min-w-32">Profit: £{estimatedProfit}</span>
                     </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-1">Growing Industry</h3>
-                      <p className="text-muted-foreground">
-                        The creator economy is expanding rapidly, with increasing opportunities for personalised merchandise that connects fans with creators.
-                      </p>
-                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Based on £{profitPerSale} profit per sale
+                    </p>
                   </div>
                 </RevealOnScroll>
               </div>
