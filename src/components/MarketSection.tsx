@@ -1,13 +1,9 @@
 
-import { useState } from 'react';
 import { BarChart3, TrendingUp, Users } from 'lucide-react';
 import RevealOnScroll from './ui/RevealOnScroll';
-import { Slider } from './ui/slider';
 
 const MarketSection = () => {
-  const [salesCount, setSalesCount] = useState<number>(500);
   const profitPerSale = 50; // £50 profit per sale
-  const estimatedProfit = salesCount * profitPerSale;
 
   return (
     <section id="market" className="relative py-20">
@@ -53,28 +49,6 @@ const MarketSection = () => {
                     </div>
                   </div>
                 </RevealOnScroll>
-
-                <RevealOnScroll animation="slide-right" delay="delay-400">
-                  <div className="mt-10 space-y-4">
-                    <h3 className="text-xl font-semibold">Calculate Your Potential Profit</h3>
-                    <div className="flex items-center gap-4">
-                      <span className="min-w-20 text-right">Sales: {salesCount}</span>
-                      <div className="flex-grow">
-                        <Slider 
-                          defaultValue={[500]} 
-                          max={1000} 
-                          step={10} 
-                          onValueChange={(values) => setSalesCount(values[0])}
-                          className="py-4"
-                        />
-                      </div>
-                      <span className="min-w-32">Profit: £{estimatedProfit}</span>
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      Based on £{profitPerSale} profit per sale
-                    </p>
-                  </div>
-                </RevealOnScroll>
               </div>
             </div>
           </RevealOnScroll>
@@ -86,7 +60,7 @@ const MarketSection = () => {
                 <div className="absolute top-0 right-0 w-32 h-32 bg-vlv-burgundy/10 rounded-full blur-2xl" />
                 <div className="absolute bottom-0 left-0 w-40 h-40 bg-vlv-purple/10 rounded-full blur-2xl" />
                 
-                <h3 className="text-2xl font-semibold mb-6">Potential Monthly Revenue</h3>
+                <h3 className="text-2xl font-semibold mb-6">Potential Monthly Profit</h3>
                 
                 <div className="space-y-6">
                   <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4">

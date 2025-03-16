@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Check, PoundSterling, Shield } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import RevealOnScroll from './ui/RevealOnScroll';
 import RegistrationDialog from './RegistrationDialog';
@@ -90,19 +90,6 @@ const CallToAction = () => {
                     </div>
                   </div>
                 )}
-                
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div className="bg-card/50 p-6 rounded-xl border border-border/50 hover:border-border/80 transition-colors">
-                    <PoundSterling className="h-8 w-8 text-vlv-purple mb-3" />
-                    <h4 className="font-semibold text-lg mb-2">Zero Costs</h4>
-                    <p className="text-muted-foreground">Start your business with no financial risk</p>
-                  </div>
-                  <div className="bg-card/50 p-6 rounded-xl border border-border/50 hover:border-border/80 transition-colors">
-                    <Shield className="h-8 w-8 text-vlv-purple mb-3" />
-                    <h4 className="font-semibold text-lg mb-2">Privacy Guaranteed</h4>
-                    <p className="text-muted-foreground">Your data stays completely secure</p>
-                  </div>
-                </div>
               </div>
             </RevealOnScroll>
           </div>
