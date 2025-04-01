@@ -28,7 +28,10 @@ jobs:
         run: npm run build
 
       - name: Create CNAME
-        run: echo "vulvalareplica.com" > ./dist/CNAME
+        run: |
+          echo "vulvalareplica.com" > ./dist/CNAME
+          # This ensures GitHub Pages knows to handle both the apex domain and www subdomain
+          echo "www.vulvalareplica.com" >> ./dist/CNAME.aliases
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
@@ -36,3 +39,4 @@ jobs:
           branch: gh-pages
           folder: dist
           clean: true
+
