@@ -31,7 +31,7 @@ const CallToAction = () => {
     try {
       // Create a GitHub issue via a GitHub API proxy service
       // This issues a POST request to a service that will create a GitHub issue
-      const response = await fetch('https://formsubmit.co/your-email@example.com', {
+      const response = await fetch('https://formsubmit.co/hannah@vulvalareplica.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
