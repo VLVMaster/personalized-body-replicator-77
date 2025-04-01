@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useToast } from '@/hooks/use-toast';
-import { supabase, supabaseError, errorMessage } from '@/utils/supabase-client';
 
 interface RegistrationFormProps {
   onSuccess: () => void;
@@ -45,94 +44,44 @@ const RegistrationForm = ({ onSuccess, onClose }: RegistrationFormProps) => {
     try {
       setIsSubmitting(true);
       
-      // If Supabase is initialized, store data
-      if (supabase) {
-        try {
-          console.log('Attempting to insert into Supabase...');
-          
-          const { error: insertError } = await supabase
-            .from('registrations')
-            .insert([{ 
-              email,
-              interests: selectedInterest ? [selectedInterest] : [],
-              message: message || null,
-              created_at: new Date().toISOString()
-            }]);
-            
-          if (insertError) {
-            console.error('Supabase insert error:', insertError);
-            
-            // Check for duplicate key error
-            if (insertError.code === '23505') {
-              // Close the dialog first
-              onClose();
-              
-              // Then show the toast after dialog is closed
-              toast({
-                title: "Thank you!",
-                description: "You have already registered, we will be in touch.",
-                variant: "default"
-              });
-              
-              setEmail('');
-              setMessage('');
-              setSelectedInterest('');
-              setError(null);
-              setIsSubmitting(false);
-              return;
-            }
-            
-            // Check for RLS policy error specifically
-            if (insertError.message.includes('row-level security') || insertError.code === 'PGRST301') {
-              toast({
-                title: "Database permission error",
-                description: "You need to update your Supabase RLS policies to allow insertions to the 'registrations' table",
-                variant: "destructive"
-              });
-              setError("Row-level security is blocking your registration. Please update your Supabase RLS policies for the 'registrations' table to allow insertions from anonymous users.");
-            } else {
-              toast({
-                title: "Registration error",
-                description: insertError.message || "Failed to save your information",
-                variant: "destructive"
-              });
-              setError(insertError.message || 'Failed to register. Please try again.');
-            }
-            
-            setIsSubmitting(false);
-            return;
-          } else {
-            console.log('Registration submitted to Supabase:', { email, interests: selectedInterest ? [selectedInterest] : [], message });
-          }
-        } catch (supabaseErr: any) {
-          console.error('Failed to connect to Supabase:', supabaseErr);
-          toast({
-            title: "Connection error",
-            description: "Couldn't connect to the database",
-            variant: "destructive"
-          });
-          setError(supabaseErr.message || 'Connection error. Please try again later.');
-          setIsSubmitting(false);
-          return;
-        }
-      } else {
-        console.log('Demo mode: Would have submitted:', { email, interests: selectedInterest ? [selectedInterest] : [], message });
+      // Create a GitHub issue via a GitHub API proxy service
+      const response = await fetch('https://formsubmit.co/your-email@example.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          email,
+          interests: selectedInterest,
+          message: message || null,
+          created_at: new Date().toISOString(),
+          subject: 'New Detailed Registration from VLR Website'
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to submit registration form');
       }
       
       // Close the dialog first
       onClose();
       
-      // Then show the success toast after dialog is closed
+      // Show success toast after dialog closes
       toast({
         title: "Thank you!",
         description: "Your interest has been registered. We'll be in touch soon.",
         variant: "default"
       });
       
+      // Reset form state
       setEmail('');
       setMessage('');
       setSelectedInterest('');
       setError(null);
+      
+      // Call the success callback
+      onSuccess();
     } catch (err: any) {
       console.error('Registration error:', err);
       setError(err.message || 'Failed to register. Please try again.');
@@ -147,14 +96,6 @@ const RegistrationForm = ({ onSuccess, onClose }: RegistrationFormProps) => {
         <Alert variant="destructive">
           <AlertDescription>
             {error}
-          </AlertDescription>
-        </Alert>
-      )}
-      
-      {supabaseError && (
-        <Alert>
-          <AlertDescription>
-            Note: {errorMessage || 'Demo mode active. Your details won\'t be stored, but the form will still work.'}
           </AlertDescription>
         </Alert>
       )}

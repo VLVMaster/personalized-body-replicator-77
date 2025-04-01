@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Check } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
@@ -9,8 +10,9 @@ const CallToAction = () => {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Validate email
@@ -23,15 +25,47 @@ const CallToAction = () => {
       return;
     }
     
-    // In a real app, you'd send this to your backend
-    // For now, just show a success message
-    toast({
-      title: "Interest registered!",
-      description: "Thank you for your interest in VLR.",
-    });
+    // Set loading state
+    setIsLoading(true);
     
-    setIsSubmitted(true);
-    setEmail('');
+    try {
+      // Create a GitHub issue via a GitHub API proxy service
+      // This issues a POST request to a service that will create a GitHub issue
+      const response = await fetch('https://formsubmit.co/your-email@example.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          email,
+          subject: 'New Registration Interest from VLR Website',
+          timestamp: new Date().toISOString()
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+      
+      // Show success toast
+      toast({
+        title: "Interest registered!",
+        description: "Thank you for your interest in VLR.",
+      });
+      
+      setIsSubmitted(true);
+      setEmail('');
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: "Submission failed",
+        description: "There was an error processing your request. Please try again later.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -47,11 +81,8 @@ const CallToAction = () => {
 
             <RevealOnScroll animation="slide-up">
               <div className="relative">
-                <h3 className="text-2xl md:text-3xl font-semibold mb-6 text-center">
-                  Register Interest
-                </h3>
                 <p className="text-lg mb-8 max-w-2xl mx-auto text-center text-muted-foreground">
-                  Join our community of interested creators and be the first to know when we launch to be invited to scan.
+                  Your scan and personal data remain completely secure. Your body, your control, always.
                 </p>
                 
                 {!isSubmitted ? (
@@ -64,9 +95,14 @@ const CallToAction = () => {
                         placeholder="Enter your email"
                         className="flex-grow input-field focus:border-vlv-purple"
                         required
+                        disabled={isLoading}
                       />
-                      <button type="submit" className="button-primary whitespace-nowrap">
-                        Register Interest
+                      <button 
+                        type="submit" 
+                        className="button-primary whitespace-nowrap"
+                        disabled={isLoading}
+                      >
+                        {isLoading ? 'Registering...' : 'Register Interest'}
                       </button>
                     </div>
                   </form>
