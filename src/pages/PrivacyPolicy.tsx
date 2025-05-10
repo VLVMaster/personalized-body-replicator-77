@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -15,7 +14,7 @@ const PrivacyPolicy = () => {
             <p className="mb-4">Last Updated: {new Date().toLocaleDateString()}</p>
             
             <h2 className="text-xl font-semibold mt-6 mb-3">1. Introduction</h2>
-            <p>At Vulva La Replica ("VLR", "we", "us", or "our"), we respect your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website or use our services.</p>
+            <p>At MoldMe ("we", "us", or "our"), we respect your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website or use our services.</p>
             
             <h2 className="text-xl font-semibold mt-6 mb-3">2. Information We Collect</h2>
             <p>We may collect the following types of information:</p>
@@ -60,7 +59,7 @@ const PrivacyPolicy = () => {
             <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.</p>
             
             <h2 className="text-xl font-semibold mt-6 mb-3">9. Contact Information</h2>
-            <p>If you have any questions about this Privacy Policy, please contact us at privacy@vulvalareplica.com.</p>
+            <p>If you have any questions about this Privacy Policy, please contact us at privacy@moldme.com.</p>
           </div>
         </div>
       </main>

@@ -78,4 +78,3 @@ echo "5. Remember that it can take up to 24 hours for DNS changes to fully propa
 echo "6. Try clearing your browser cache or using a private browsing window"
 echo ""
 echo "You can also try forcing a new deployment by making a small change and pushing it to GitHub."
-

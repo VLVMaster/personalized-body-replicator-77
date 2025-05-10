@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -15,7 +14,7 @@ const TermsOfService = () => {
             <p className="mb-4">Last Updated: {new Date().toLocaleDateString()}</p>
             
             <h2 className="text-xl font-semibold mt-6 mb-3">1. Introduction</h2>
-            <p>Welcome to Vulva La Replica ("VLR", "we", "us", or "our"). By accessing or using our website, products, or services, you agree to be bound by these Terms of Service ("Terms").</p>
+            <p>Welcome to MoldMe ("we", "us", or "our"). By accessing or using our website, products, or services, you agree to be bound by these Terms of Service ("Terms").</p>
             
             <h2 className="text-xl font-semibold mt-6 mb-3">2. Eligibility</h2>
             <p>You must be at least 18 years old and capable of forming a binding contract to use our services. By using our services, you represent that you meet these requirements.</p>
@@ -53,7 +52,7 @@ const TermsOfService = () => {
             <p>These Terms shall be governed by and construed in accordance with the laws of the jurisdiction in which VLR is registered, without regard to its conflict of law provisions.</p>
             
             <h2 className="text-xl font-semibold mt-6 mb-3">10. Contact Information</h2>
-            <p>If you have any questions about these Terms, please contact us at support@vulvalareplica.com.</p>
+            <p>If you have any questions about these Terms, please contact us at support@moldme.com.</p>
           </div>
         </div>
       </main>

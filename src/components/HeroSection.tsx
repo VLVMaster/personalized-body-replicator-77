@@ -27,7 +27,7 @@ const HeroSection = () => {
           
           <RevealOnScroll animation="slide-up" delay="delay-300">
             <p className="text-lg md:text-xl text-foreground opacity-90 mb-8 mx-auto">
-              At VLR, we help creators transform their most intimate features into personalised replica sex toys. <strong>Simply scan, sell, and profit.</strong>
+              At MoldMe, we help creators transform their most intimate features into personalised replica sex toys. <strong>Simply scan, sell, and profit.</strong>
             </p>
           </RevealOnScroll>
           

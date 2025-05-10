@@ -23,7 +23,7 @@ const Footer = () => {
           </div>
           
           <div className="text-center text-gray-400 text-sm">
-            <p>© {currentYear} Vulva La Replica. All rights reserved.</p>
+            <p>© {currentYear} MoldMe. All rights reserved.</p>
           </div>
         </div>
       </div>

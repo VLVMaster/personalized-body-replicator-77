@@ -98,4 +98,3 @@ echo "For www subdomain issues specifically:"
 echo "1. Add a CNAME record for www pointing to $DOMAIN or your GitHub Pages URL"
 echo "2. Make sure your GitHub Pages settings has 'Enforce HTTPS' enabled"
 echo "3. Check that both the apex domain and www subdomain are properly configured in DNS"
-
