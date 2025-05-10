@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -87,7 +88,7 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 relative z-50">
-          <span className="text-2xl font-display font-bold text-vlv-purple">MoldMe</span>
+          <span className="text-2xl font-display font-bold text-vlv-purple">IntiMore</span>
         </Link>
         
         {isMobile ? (
@@ -112,7 +113,7 @@ const Navbar = () => {
               className="nav-link text-sm"
               onClick={(e) => handleNavigation(e, '#benefits')}
             >
-              Why Choose VLR
+              Why Choose IntiMore
             </a>
             <a 
               href="#market" 
@@ -158,7 +159,7 @@ const Navbar = () => {
                 className="text-lg font-medium py-1.5 w-full text-center"
                 onClick={(e) => handleNavigation(e, '#benefits')}
               >
-                Why Choose VLR
+                Why Choose IntiMore
               </a>
               <a 
                 href="#market" 

@@ -17,7 +17,7 @@ const BenefitsSection = () => {
     {
       icon: <Users className="h-8 w-8 text-vlv-purple" />,
       title: "100% Female Owned",
-      description: "Built by women, for women. VLR empowers you to expand your brand, your way."
+      description: "Built by women, for women. IntiMore empowers you to expand your brand, your way."
     },
     {
       icon: <ShieldCheck className="h-8 w-8 text-vlv-purple" />,
@@ -32,7 +32,7 @@ const BenefitsSection = () => {
         <RevealOnScroll>
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="section-heading">
-              Why Choose <span className="gradient-text">VLR</span>
+              Why Choose <span className="gradient-text">IntiMore</span>
             </h2>
             <p className="section-subheading mx-auto">
               We've designed our service to make monetisation easy, secure, and profitable for creators

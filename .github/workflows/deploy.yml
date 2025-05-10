@@ -29,9 +29,9 @@ jobs:
 
       - name: Create CNAME
         run: |
-          echo "moldme.com" > ./dist/CNAME
+          echo "intimore.com" > ./dist/CNAME
           # This ensures GitHub Pages knows to handle both the apex domain and www subdomain
-          echo "www.moldme.com" >> ./dist/CNAME.aliases
+          echo "www.intimore.com" >> ./dist/CNAME.aliases
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
@@ -39,4 +39,3 @@ jobs:
           branch: gh-pages
           folder: dist
           clean: true
-
